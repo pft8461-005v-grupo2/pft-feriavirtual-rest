@@ -1,5 +1,6 @@
 package com.duoc.feriavirtualrest.controller;
 
+import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.model.UsuarioModel;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "usuario")
@@ -25,8 +28,30 @@ public class UsuarioController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> add(@RequestBody UsuarioModel usuarioModel){
-        return new ResponseEntity<Object>(usuarioService.SP_CREAR_USUARIO(usuarioModel), HttpStatus.OK);
+    public ResponseEntity<Object> crear(@RequestBody UsuarioModel usuarioModel){
+        return new ResponseEntity<Object>(usuarioService.SP_USUARIO_CREAR(usuarioModel), HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/consultar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> consultar(@RequestBody UsuarioModel usuarioModel){
+
+        List<Usuario> resultado = usuarioService.SP_USUARIO_CONSULTAR(usuarioModel.getId());
+
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/consultar-correo",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> consultar_correo(@RequestBody UsuarioModel usuarioModel){
+
+        Object resultado = usuarioService.SP_USUARIO_CONSULTAR_CORREO(usuarioModel.getCorreo());
+
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
     }
 
 }
