@@ -16,4 +16,9 @@ public class ProductorController {
         return ViewConstant.V_P_HOME;
     }
 
+    @GetMapping("/ingresarproducto")
+    public String ingresarProducto (){
+        return ViewConstant.V_P_INGRESO;
+    }
+
 }

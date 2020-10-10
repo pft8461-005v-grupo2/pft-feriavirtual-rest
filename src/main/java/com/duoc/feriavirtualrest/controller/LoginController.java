@@ -24,26 +24,8 @@ public class LoginController {
             @RequestParam(name = "logout", required = false) String logout,
             HttpServletRequest request) {
 
-        /*
-        model.addAttribute("error", error);
-        model.addAttribute("logout", logout);
 
-        if(logout == ""){
-
-            // usuario pasa por acá, cuando presionó cerrar sesión,
-            // o se le acabó su tiempo de sessión, el valor "logout" vendrá con ""
-            UsuarioModel usuarioModel = new UsuarioModel();
-            // Obtenemos la session
-            HttpSession mi_sesion = request.getSession(true);
-            // Si la sesion no es nueva
-            if ((UsuarioModel) mi_sesion.getAttribute("usuarioSession") != null) {
-                usuarioModel = (UsuarioModel) mi_sesion.getAttribute("usuarioSession");
-            }
-        }
-
-         */
-
-        return ViewConstant.V_LOGIN;
+        return "/login";
     }
 
     @GetMapping("/loginsuccess")
