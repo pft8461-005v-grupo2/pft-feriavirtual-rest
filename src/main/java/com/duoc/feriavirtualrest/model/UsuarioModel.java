@@ -6,7 +6,7 @@ public class UsuarioModel {
     private int rol_id;
     private String correo;
     private String contrasena;
-    private boolean habilitado;
+    private char habilitado;
 
     public UsuarioModel() {
     }
@@ -43,11 +43,7 @@ public class UsuarioModel {
         this.contrasena = contrasena;
     }
 
-    public boolean isHabilitado() {
-        return habilitado;
-    }
+    public char getHabilitado() { return habilitado; }
 
-    public void setHabilitado(boolean habilitado) {
-        this.habilitado = habilitado;
-    }
+    public void setHabilitado(char habilitado) { this.habilitado = habilitado; }
 }
