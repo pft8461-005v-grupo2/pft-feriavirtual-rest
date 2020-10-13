@@ -1,5 +1,5 @@
 package com.duoc.feriavirtualrest.entity;
-
+//prueba
 public class Producto {
 
     private int id;
