@@ -1,12 +1,12 @@
 package com.duoc.feriavirtualrest.model;
 
-public class RolModel {
+public class ProductoModel {
 
     private int id;
     private String descripcion;
-    private String area;
+    private char habilitado;
 
-    public RolModel() {
+    public ProductoModel() {
     }
 
     public int getId() {
@@ -25,11 +25,11 @@ public class RolModel {
         this.descripcion = descripcion;
     }
 
-    public String getArea() {
-        return area;
+    public char getHabilitado() {
+        return habilitado;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setHabilitado(char habilitado) {
+        this.habilitado = habilitado;
     }
 }

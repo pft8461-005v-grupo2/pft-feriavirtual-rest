@@ -1,7 +1,6 @@
 package com.duoc.feriavirtualrest.service.implementation;
 
 import com.duoc.feriavirtualrest.entity.Usuario;
-import com.duoc.feriavirtualrest.model.UsuarioModel;
 import com.duoc.feriavirtualrest.repository.UsuarioRepository;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.StoredProcedureQuery;
 import java.util.ArrayList;

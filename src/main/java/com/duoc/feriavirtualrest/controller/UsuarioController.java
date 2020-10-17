@@ -1,7 +1,6 @@
 package com.duoc.feriavirtualrest.controller;
 
 import com.duoc.feriavirtualrest.entity.Usuario;
-import com.duoc.feriavirtualrest.model.UsuarioModel;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
