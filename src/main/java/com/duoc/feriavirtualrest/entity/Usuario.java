@@ -1,7 +1,7 @@
 package com.duoc.feriavirtualrest.entity;
 
 
-import com.duoc.feriavirtualrest.constant.UtilConstant;
+import com.duoc.feriavirtualrest.constant.SPConstant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ import java.io.Serializable;
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(
                 name = "SP_USUARIO_CREAR",
-                procedureName = UtilConstant.TABLE_SPACE + "SP_USUARIO_CREAR",
+                procedureName = SPConstant.TABLE_SPACE + "SP_USUARIO_CREAR",
                 parameters = {
                         @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_ROL_ID", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CORREO", type=String.class),

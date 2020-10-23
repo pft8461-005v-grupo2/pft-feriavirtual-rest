@@ -1,8 +1,12 @@
 package com.duoc.feriavirtualrest.service.implementation;
 
+import com.duoc.feriavirtualrest.constant.SPConstant;
 import com.duoc.feriavirtualrest.entity.Usuario;
+import com.duoc.feriavirtualrest.model.UsuarioModel;
 import com.duoc.feriavirtualrest.repository.UsuarioRepository;
 import com.duoc.feriavirtualrest.service.UsuarioService;
+import com.duoc.feriavirtualrest.service.UtilService;
+import com.duoc.feriavirtualrest.util.SPDataIN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +31,11 @@ public class UsuarioServiceImp implements UsuarioService {
     @Qualifier("usuarioRepository")
     private UsuarioRepository usuarioRepository;
 
-    @PersistenceUnit
-    private EntityManagerFactory emf;
+
+    @Autowired
+    @Qualifier("utilService")
+    private UtilService utilService;
+
 
 
     @Override
@@ -47,38 +54,20 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    public List<Usuario> SP_USUARIO_CONSULTAR(int id) {
-        try{
-            EntityManager em = emf.createEntityManager();
-            StoredProcedureQuery procedureQuery =
-                    em.createStoredProcedureQuery("PORTAFOLIO.SP_USUARIO_CONSULTAR", Usuario.class);
-            procedureQuery.registerStoredProcedureParameter("IN_ID", Integer.class, ParameterMode.IN);
-            procedureQuery.registerStoredProcedureParameter("OUT_RESULTADO", Class.class, ParameterMode.REF_CURSOR);
-            procedureQuery.setParameter("IN_ID", id);
-            procedureQuery.execute();
-            List<Usuario> resultado = procedureQuery.getResultList();
-            return resultado;
-        }catch (Exception e) {
-            log.error("Error al consultar usuario por id", e);
-            return new ArrayList<>();
-        }
+    public List<Usuario> SP_USUARIO_CONSULTAR(int id) throws ClassNotFoundException {
+
+        List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
+        LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, id));
+        return (List<Usuario>)(utilService.ejecutarSP(SPConstant.SP_USUARIO_CONSULTAR, Usuario.class, LISTA_SP_IN));
+
     }
 
     @Override
-    public Object SP_USUARIO_CONSULTAR_CORREO(String correo) {
-        try{
-            EntityManager em = emf.createEntityManager();
-            StoredProcedureQuery procedureQuery =
-                    em.createStoredProcedureQuery("PORTAFOLIO.SP_USUARIO_CONSULTAR_CORREO", Usuario.class);
-            procedureQuery.registerStoredProcedureParameter("IN_CORREO", String.class, ParameterMode.IN);
-            procedureQuery.registerStoredProcedureParameter("OUT_RESULTADO", Class.class, ParameterMode.REF_CURSOR);
-            procedureQuery.setParameter("IN_CORREO", correo);
-            procedureQuery.execute();
-            List<Usuario> resultado = procedureQuery.getResultList();
-            return resultado;
-        }catch (Exception e) {
-            log.error("Error al consultar usuario por correo", e);
-            return new ArrayList<>();
-        }
+    public Object SP_USUARIO_CONSULTAR_CORREO(String correo) throws ClassNotFoundException {
+
+        List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
+        LISTA_SP_IN.add(new SPDataIN("IN_CORREO", String.class, correo));
+        return (List<Usuario>)(utilService.ejecutarSP(SPConstant.SP_USUARIO_CONSULTAR_CORREO, Usuario.class, LISTA_SP_IN));
+
     }
 }

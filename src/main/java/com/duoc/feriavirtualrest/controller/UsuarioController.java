@@ -1,6 +1,7 @@
 package com.duoc.feriavirtualrest.controller;
 
 import com.duoc.feriavirtualrest.entity.Usuario;
+import com.duoc.feriavirtualrest.model.UsuarioModel;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class UsuarioController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> consultar(@RequestBody UsuarioModel usuarioModel){
+    public ResponseEntity<Object> consultar(@RequestBody UsuarioModel usuarioModel) throws ClassNotFoundException {
 
         List<Usuario> resultado = usuarioService.SP_USUARIO_CONSULTAR(usuarioModel.getId());
 
@@ -46,7 +47,7 @@ public class UsuarioController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> consultar_correo(@RequestBody UsuarioModel usuarioModel){
+    public ResponseEntity<Object> consultar_correo(@RequestBody UsuarioModel usuarioModel) throws ClassNotFoundException {
 
         Object resultado = usuarioService.SP_USUARIO_CONSULTAR_CORREO(usuarioModel.getCorreo());
 

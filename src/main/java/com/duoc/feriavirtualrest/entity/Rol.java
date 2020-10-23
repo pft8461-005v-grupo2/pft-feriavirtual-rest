@@ -1,6 +1,6 @@
 package com.duoc.feriavirtualrest.entity;
 
-import com.duoc.feriavirtualrest.constant.UtilConstant;
+import com.duoc.feriavirtualrest.constant.SPConstant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ import javax.persistence.StoredProcedureParameter;
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(
                 name = "SP_ROL_CONSULTAR_ID",
-                procedureName = UtilConstant.TABLE_SPACE + "SP_ROL_CONSULTAR_ID",
+                procedureName = SPConstant.TABLE_SPACE + "SP_ROL_CONSULTAR_ID",
                 resultClasses = Rol.class,
                 parameters = {
                         @StoredProcedureParameter(

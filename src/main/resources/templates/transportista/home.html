@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Transportista</title>
+    <base href="../">
+
+    <div th:replace="componentes/base :: load-styles"></div>
+
 </head>
 <body>
-    <h2>Transportista</h2>
-    <p>Esta es la pagina que se les mostrará a los transportistas</p>
-    <button>Click!</button>
+<div th:replace="componentes/base :: load-menus"></div>
+
+
+<div th:replace="componentes/base :: load-scripts"></div>
 </body>
 </html>
