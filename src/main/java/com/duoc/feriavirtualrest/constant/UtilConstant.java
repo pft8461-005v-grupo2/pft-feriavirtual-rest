@@ -9,7 +9,5 @@ public class UtilConstant {
     public static final String ROLE_PRODUCTOR = "ROLE_PRODUCTOR";
     public static final String ROLE_TRANSPORTISTA = "ROLE_TRANSPORTISTA";
 
-    // [ SP TABLE_SPACE ]
-    public static final String TABLE_SPACE = "PORTAFOLIO.";
 
 }

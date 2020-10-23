@@ -8,48 +8,43 @@
 
     <th:block th:fragment="load-styles">
         <link href="./assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="./assets/css/extras.css" rel="stylesheet" type="text/css" />
     </th:block>
 </head>
 <body>
 
 
     <th:block th:fragment="load-menus">
-        <div class="container">
-            <nav sec:authorize="hasAuthority('ROLE_ADMIN')" class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Administrador</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+            <div class="container">
+                <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="navbar-brand" href="#">Administrador</a>
+                <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')"class="navbar-brand" href="#">Productor</a>
+                <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')"class="navbar-brand" href="#">Transportista</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse">
-                    <div class="navbar-nav">
-                        <a class="nav-link active" href="#">Cliente Externo <span class="sr-only">(current)</span></a>
-                        <a class="nav-link" href="#">Cliente Interno</a>
-                        <a class="nav-link" href="#">Productor</a>
-                        <a class="nav-link" href="#">Transportista</a>
-                        <form class="form-inline" th:action="@{/logout}" method="POST">
-                            <button type="submit" class="btn btn-primary">Cerrar sesión</button>
-                        </form>
-                    </div>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-link" href="#">Cliente Externo</a>
+                            <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" href="#">Pedidos Intenacionales</a>
+                            <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')" class="nav-link" href="#">Subastas disponibles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" href="#">Mis Pedidos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" href="#">Ingresar productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <form class="form-inline" th:action="@{/logout}" method="POST">
+                                <button type="submit" class="btn btn-link text-light">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-            <nav sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Productor</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <div class="navbar-nav">
-                        <a class="nav-link" href="#">Pedidos Internacionales <span class="sr-only">(current)</span></a>
-                        <a class="nav-link" href="#">Mis Pedidos</a>
-                        <a class="nav-link" href="#">Ingresar Productos</a>
-                        <a class="nav-link" href="#">Quienes Somos</a>
-                        <form class="form-inline" th:action="@{/logout}" method="POST">
-                            <button type="submit" class="btn btn-primary">Cerrar sesión</button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </th:block>
 
 

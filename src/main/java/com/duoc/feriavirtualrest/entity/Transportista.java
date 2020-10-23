@@ -1,9 +1,10 @@
 package com.duoc.feriavirtualrest.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+//@Entity
 //@Table(name = "TRANSPORTISTA") que es esto? cuando va?
 //falta un metodo que va antes de los campos a continuacion
 //metodo usuario tiene un implement seriabizable o algo asi y el rol no lo tiene, cual es la diferencia?
@@ -19,6 +20,7 @@ public class Transportista {
     private String correo;
     private char habilitado;
 
+    @Id
     public int getId() {
         return id;
     }
@@ -82,4 +84,6 @@ public class Transportista {
     public void setHabilitado(char habilitado) {
         this.habilitado = habilitado;
     }
+
+
 }
