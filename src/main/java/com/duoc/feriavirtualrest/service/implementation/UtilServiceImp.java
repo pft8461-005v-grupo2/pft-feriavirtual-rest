@@ -1,7 +1,6 @@
 package com.duoc.feriavirtualrest.service.implementation;
 
 import com.duoc.feriavirtualrest.constant.SPConstant;
-import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.UtilService;
 import com.duoc.feriavirtualrest.util.SPDataIN;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.StoredProcedureQuery;
 import java.util.List;
-import java.util.Map;
 
 @Service("utilService")
 public class UtilServiceImp implements UtilService {

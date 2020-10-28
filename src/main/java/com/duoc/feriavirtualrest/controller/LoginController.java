@@ -62,6 +62,11 @@ public class LoginController {
 
 
 
+
+
+
+
+
         /*
         // Buscamos el usuario para obtener id desde bd
         UsuarioModel usuarioModel_encontrado = usuarioService.findByUsuarioAndDisponible(user.getUsername(), true);

@@ -11,6 +11,40 @@
 <body>
 <div th:replace="componentes/base :: load-menus"></div>
 
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pedido</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>#182412</td>
+            <td>Verdulería Fernandez</td>
+            <td>19-05-2020</td>
+            <td>
+                <a class="btn btn-success" th:href="@{/productor/ingresarproducto}">Postular</a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>#182412</td>
+            <td>Verdulería Guitierrez</td>
+            <td>20-05-2020</td>
+            <td>
+                <a class="btn btn-success" th:href="@{/productor/ingresarproducto}">Postular</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 
 <div th:replace="componentes/base :: load-scripts"></div>
 </body>
