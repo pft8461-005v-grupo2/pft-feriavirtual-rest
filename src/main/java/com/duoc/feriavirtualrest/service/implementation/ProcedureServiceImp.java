@@ -1,7 +1,8 @@
 package com.duoc.feriavirtualrest.service.implementation;
 
 import com.duoc.feriavirtualrest.constant.SPConstant;
-import com.duoc.feriavirtualrest.service.UtilService;
+import com.duoc.feriavirtualrest.entity.Usuario;
+import com.duoc.feriavirtualrest.service.ProcedureService;
 import com.duoc.feriavirtualrest.util.SPDataIN;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +11,19 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.StoredProcedureQuery;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
-@Service("utilService")
-public class UtilServiceImp implements UtilService {
+@Service("procedureService")
+public class ProcedureServiceImp implements ProcedureService {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
 
     @Override
-    public List<?> ejecutarSP(String SP_NAME, Class<?> SP_CLASS_REF, List<SPDataIN> SP_IN_DATA) throws ClassNotFoundException {
+    public List<?> ejecutarSP(String SP_NAME, Class<?> SP_CLASS_REF, List<SPDataIN> SP_IN_DATA) {
 
         EntityManager em = emf.createEntityManager();
         StoredProcedureQuery procedureQuery =

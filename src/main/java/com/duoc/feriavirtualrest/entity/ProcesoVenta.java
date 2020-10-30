@@ -1,6 +1,10 @@
 package com.duoc.feriavirtualrest.entity;
 
+import com.duoc.feriavirtualrest.util.SPDataIN;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ProcesoVenta {
 
@@ -85,4 +89,21 @@ public class ProcesoVenta {
     public void setPreciocostotal(int preciocostotal) {
         this.preciocostotal = preciocostotal;
     }
+
+    public List<SPDataIN> generarDataIN(){
+        List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
+        LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
+        LISTA_SP_IN.add(new SPDataIN("IN_INGRESO_ID", Integer.class, this.INGRESO_id == 0 ? null : this.INGRESO_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_SOLICITUD_COMPRA_ID", Integer.class, this.SOLICITUD_COMPRA_id == null ? null : this.SOLICITUD_COMPRA_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_SUBASTA_ID", Integer.class, this.SUBASTA_id == null ? null : this.SUBASTA_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_ETAPA", String.class, this.etapa == 0 ? null : this.etapa));
+        LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", String.class, this.fechacreacion == null ? null : this.fechacreacion));
+        LISTA_SP_IN.add(new SPDataIN("IN_CLIENTEACEPTAACUERDO", String.class, this.clienteaceptaacuerdo == 0 ? null : this.clienteaceptaacuerdo));
+        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOVENTATOTAL", String.class, this.precioventatotal == 0 ? null : this.precioventatotal));
+        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOCOSTOTOTAL", String.class, this.preciocostotal == 0 ? null : this.preciocostotal));
+        return LISTA_SP_IN;
+    }
 }
+
+
+

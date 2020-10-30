@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @Controller
@@ -47,7 +48,7 @@ public class UsuarioController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> consultar_correo(@RequestBody UsuarioModel usuarioModel) throws ClassNotFoundException {
+    public ResponseEntity<Object> consultar_correo(@RequestBody UsuarioModel usuarioModel) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
         Object resultado = usuarioService.SP_USUARIO_CONSULTAR_CORREO(usuarioModel.getCorreo());
 
