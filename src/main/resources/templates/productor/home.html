@@ -23,20 +23,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr th:each="procesoventa : ${lista_procesoventa}">
             <th scope="row">1</th>
-            <td>#182412</td>
-            <td>Verdulería Fernandez</td>
-            <td>19-05-2020</td>
-            <td>
-                <a class="btn btn-success" th:href="@{/productor/ingresarproducto}">Postular</a>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>#182412</td>
-            <td>Verdulería Guitierrez</td>
-            <td>20-05-2020</td>
+            <td th:text="${procesoventa.Id}"></td>
+            <td th:text="${procesoventa.INGRESO_id}"></td>
+
+
             <td>
                 <a class="btn btn-success" th:href="@{/productor/ingresarproducto}">Postular</a>
             </td>

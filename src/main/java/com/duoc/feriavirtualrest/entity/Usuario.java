@@ -2,6 +2,7 @@ package com.duoc.feriavirtualrest.entity;
 
 
 import com.duoc.feriavirtualrest.constant.SPConstant;
+import com.duoc.feriavirtualrest.util.SPDataIN;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NamedStoredProcedureQueries({
@@ -83,4 +86,15 @@ public class Usuario implements Serializable {
     public void setHabilitado(char habilitado) {
         this.habilitado = habilitado;
     }
+
+    public List<SPDataIN> generarDataIN(){
+        List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
+        LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
+        LISTA_SP_IN.add(new SPDataIN("IN_ROL_ID", Integer.class, this.rol_id == 0 ? null : this.rol_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_CORREO", String.class, this.correo == null ? null : this.correo));
+        LISTA_SP_IN.add(new SPDataIN("IN_CONTRASENA", String.class, this.contrasena == null ? null : this.contrasena));
+        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", String.class, this.habilitado == 0 ? null : this.habilitado));
+        return LISTA_SP_IN;
+    }
+
 }

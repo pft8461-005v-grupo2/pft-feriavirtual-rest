@@ -5,7 +5,7 @@ import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.model.UsuarioModel;
 import com.duoc.feriavirtualrest.repository.UsuarioRepository;
 import com.duoc.feriavirtualrest.service.UsuarioService;
-import com.duoc.feriavirtualrest.service.UtilService;
+import com.duoc.feriavirtualrest.service.ProcedureService;
 import com.duoc.feriavirtualrest.util.SPDataIN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.StoredProcedureQuery;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +29,8 @@ public class UsuarioServiceImp implements UsuarioService {
 
 
     @Autowired
-    @Qualifier("utilService")
-    private UtilService utilService;
+    @Qualifier("procedureService")
+    private ProcedureService procedureService;
 
 
 
@@ -55,19 +51,16 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public List<Usuario> SP_USUARIO_CONSULTAR(int id) throws ClassNotFoundException {
-
-        List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
-        LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, id));
-        return (List<Usuario>)(utilService.ejecutarSP(SPConstant.SP_USUARIO_CONSULTAR, Usuario.class, LISTA_SP_IN));
-
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        return (List<Usuario>)(procedureService.ejecutarSP(SPConstant.SP_USUARIO_CONSULTAR, Usuario.class, usuario.generarDataIN()));
     }
 
     @Override
     public Object SP_USUARIO_CONSULTAR_CORREO(String correo) throws ClassNotFoundException {
-
-        List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
-        LISTA_SP_IN.add(new SPDataIN("IN_CORREO", String.class, correo));
-        return (List<Usuario>)(utilService.ejecutarSP(SPConstant.SP_USUARIO_CONSULTAR_CORREO, Usuario.class, LISTA_SP_IN));
-
+        Usuario usuario = new Usuario();
+        usuario.setCorreo(correo);
+        return (List<Usuario>) (procedureService.ejecutarSP(
+                SPConstant.SP_USUARIO_CONSULTAR, Usuario.class, usuario.generarDataIN()));
     }
 }
