@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Cliente Nacional</title>
+    <base href="../">
+
+    <div th:replace="componentes/base :: load-styles"></div>
+
 </head>
 <body>
-    <h2>Cliente Interno</h2>
+<div th:replace="componentes/base :: load-menus"></div>
+
+
+<div th:replace="componentes/base :: load-scripts"></div>
 </body>
 </html>

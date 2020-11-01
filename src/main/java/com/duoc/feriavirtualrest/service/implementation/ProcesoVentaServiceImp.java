@@ -19,6 +19,6 @@ public class ProcesoVentaServiceImp implements ProcesoVentaService {
     @Override
     public List<ProcesoVenta> SP_PROCESOVENTA_CONSULTAR(ProcesoVenta procesoVenta) throws ClassNotFoundException {
         return (List<ProcesoVenta>) (procedureService.ejecutarSP(
-                SPConstant.SP_PROCESOVENTA_CONSULTAR, ProcesoVenta.class, procesoVenta.generarDataIN()));
+                SPConstant.SP_PROCESO_VENTA_CONSULTAR, ProcesoVenta.class, procesoVenta.generarDataIN()));
     }
 }

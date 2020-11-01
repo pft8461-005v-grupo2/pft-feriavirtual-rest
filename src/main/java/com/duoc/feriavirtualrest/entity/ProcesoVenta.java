@@ -1,23 +1,34 @@
 package com.duoc.feriavirtualrest.entity;
 
 import com.duoc.feriavirtualrest.util.SPDataIN;
+import oracle.sql.CHAR;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProcesoVenta {
+@Entity
+@Table(name = "PROCESO_VENTA")
+public class ProcesoVenta implements Serializable {
 
     private int id;
-    private int INGRESO_id;
-    private String SOLICITUD_COMPRA_id;
-    private String SUBASTA_id;
+    private int ingreso_id;
+    private int solicitud_compra_id;
+    private int subasta_id;
     private int etapa;
     private Date fechacreacion;
     private char clienteaceptaacuerdo;
     private int precioventatotal;
-    private int preciocostotal;
+    private int preciocostototal;
 
+    @Id
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -26,30 +37,34 @@ public class ProcesoVenta {
         this.id = id;
     }
 
-    public int getINGRESO_id() {
-        return INGRESO_id;
+    @Column(name = "ingreso_id")
+    public int getIngreso_id() {
+        return ingreso_id;
     }
 
-    public void setINGRESO_id(int INGRESO_id) {
-        this.INGRESO_id = INGRESO_id;
+    public void setIngreso_id(int ingreso_id) {
+        this.ingreso_id = ingreso_id;
     }
 
-    public String getSOLICITUD_COMPRA_id() {
-        return SOLICITUD_COMPRA_id;
+    @Column(name = "solicitud_compra_id")
+    public int getSolicitud_compra_id() {
+        return solicitud_compra_id;
     }
 
-    public void setSOLICITUD_COMPRA_id(String SOLICITUD_COMPRA_id) {
-        this.SOLICITUD_COMPRA_id = SOLICITUD_COMPRA_id;
+    public void setSolicitud_compra_id(int solicitud_compra_id) {
+        this.solicitud_compra_id = solicitud_compra_id;
     }
 
-    public String getSUBASTA_id() {
-        return SUBASTA_id;
+    @Column(name = "subasta_id")
+    public int getSubasta_id() {
+        return subasta_id;
     }
 
-    public void setSUBASTA_id(String SUBASTA_id) {
-        this.SUBASTA_id = SUBASTA_id;
+    public void setSubasta_id(int subasta_id) {
+        this.subasta_id = subasta_id;
     }
 
+    @Column(name = "etapa")
     public int getEtapa() {
         return etapa;
     }
@@ -58,6 +73,7 @@ public class ProcesoVenta {
         this.etapa = etapa;
     }
 
+    @Column(name = "fechacreacion")
     public Date getFechacreacion() {
         return fechacreacion;
     }
@@ -66,6 +82,7 @@ public class ProcesoVenta {
         this.fechacreacion = fechacreacion;
     }
 
+    @Column(name = "clienteaceptaacuerdo")
     public char getClienteaceptaacuerdo() {
         return clienteaceptaacuerdo;
     }
@@ -73,7 +90,7 @@ public class ProcesoVenta {
     public void setClienteaceptaacuerdo(char clienteaceptaacuerdo) {
         this.clienteaceptaacuerdo = clienteaceptaacuerdo;
     }
-
+    @Column(name = "precioventatotal")
     public int getPrecioventatotal() {
         return precioventatotal;
     }
@@ -82,25 +99,26 @@ public class ProcesoVenta {
         this.precioventatotal = precioventatotal;
     }
 
-    public int getPreciocostotal() {
-        return preciocostotal;
+    @Column(name = "preciocostototal")
+    public int getPreciocostototal() {
+        return preciocostototal;
     }
 
-    public void setPreciocostotal(int preciocostotal) {
-        this.preciocostotal = preciocostotal;
+    public void setPreciocostototal(int preciocostototal) {
+        this.preciocostototal = preciocostototal;
     }
 
     public List<SPDataIN> generarDataIN(){
         List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
         LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
-        LISTA_SP_IN.add(new SPDataIN("IN_INGRESO_ID", Integer.class, this.INGRESO_id == 0 ? null : this.INGRESO_id));
-        LISTA_SP_IN.add(new SPDataIN("IN_SOLICITUD_COMPRA_ID", Integer.class, this.SOLICITUD_COMPRA_id == null ? null : this.SOLICITUD_COMPRA_id));
-        LISTA_SP_IN.add(new SPDataIN("IN_SUBASTA_ID", Integer.class, this.SUBASTA_id == null ? null : this.SUBASTA_id));
-        LISTA_SP_IN.add(new SPDataIN("IN_ETAPA", String.class, this.etapa == 0 ? null : this.etapa));
-        LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", String.class, this.fechacreacion == null ? null : this.fechacreacion));
+        LISTA_SP_IN.add(new SPDataIN("IN_INGRESO_ID", Integer.class, this.ingreso_id == 0 ? null : this.ingreso_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_SOLICITUD_COMPRA_ID", Integer.class, this.solicitud_compra_id == 0 ? null : this.solicitud_compra_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_SUBASTA_ID", Integer.class, this.subasta_id == 0 ? null : this.subasta_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_ETAPA", Integer.class, this.etapa == 0 ? null : this.etapa));
+        LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", Date.class, this.fechacreacion == null ? null : this.fechacreacion));
         LISTA_SP_IN.add(new SPDataIN("IN_CLIENTEACEPTAACUERDO", String.class, this.clienteaceptaacuerdo == 0 ? null : this.clienteaceptaacuerdo));
-        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOVENTATOTAL", String.class, this.precioventatotal == 0 ? null : this.precioventatotal));
-        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOCOSTOTOTAL", String.class, this.preciocostotal == 0 ? null : this.preciocostotal));
+        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOVENTATOTAL", Integer.class, this.precioventatotal == 0 ? null : this.precioventatotal));
+        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOCOSTOTOTAL", Integer.class, this.preciocostototal == 0 ? null : this.preciocostototal));
         return LISTA_SP_IN;
     }
 }

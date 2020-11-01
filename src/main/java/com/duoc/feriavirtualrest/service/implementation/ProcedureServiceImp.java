@@ -34,7 +34,7 @@ public class ProcedureServiceImp implements ProcedureService {
             procedureQuery.setParameter(in.getSP_IN_PARAMETER(), in.getSP_IN_DATA());
         });
 
-        procedureQuery.registerStoredProcedureParameter("OUT_RESULTADO", Class.class, ParameterMode.REF_CURSOR);
+        procedureQuery.registerStoredProcedureParameter("out_resultado", Class.class, ParameterMode.REF_CURSOR);
         procedureQuery.execute();
 
         List<?> resultado = procedureQuery.getResultList();

@@ -3,11 +3,13 @@ package com.duoc.feriavirtualrest.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -34,8 +36,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 "/assets/**"
         };
 
-        http.authorizeRequests().antMatchers(staticResources).permitAll()
-                .anyRequest().authenticated()
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/", "/public/**").permitAll()
+                .antMatchers(staticResources).permitAll()
+                //.anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/logincheck")
                 .usernameParameter("usuario").passwordParameter("contrasena").defaultSuccessUrl("/loginsuccess").failureUrl("/login?error=true")
@@ -44,12 +50,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll()
                 .and()
                 .logout().deleteCookies("JSESSIONID")
-                .and()
-                .rememberMe()
-                .key("unique-and-secret")
-                .rememberMeParameter("unique-remember-me")
-                .rememberMeCookieName("remember-me-cookie")
-                .tokenValiditySeconds(20 * 60 * 60)
         ;
     }
 
