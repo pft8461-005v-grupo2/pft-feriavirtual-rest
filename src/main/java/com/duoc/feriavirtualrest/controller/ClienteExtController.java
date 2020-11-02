@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/clienteext")
-@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENTE_EXT')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENTE_EXTERNO')")
 public class ClienteExtController {
 
     @GetMapping("/home")

@@ -1,7 +1,6 @@
 package com.duoc.feriavirtualrest.service.implementation;
 
 import com.duoc.feriavirtualrest.constant.SPConstant;
-import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ProcedureService;
 import com.duoc.feriavirtualrest.util.SPDataIN;
 import org.springframework.stereotype.Service;
@@ -11,9 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.StoredProcedureQuery;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service("procedureService")
@@ -34,7 +31,7 @@ public class ProcedureServiceImp implements ProcedureService {
             procedureQuery.setParameter(in.getSP_IN_PARAMETER(), in.getSP_IN_DATA());
         });
 
-        procedureQuery.registerStoredProcedureParameter("OUT_RESULTADO", Class.class, ParameterMode.REF_CURSOR);
+        procedureQuery.registerStoredProcedureParameter("out_resultado", Class.class, ParameterMode.REF_CURSOR);
         procedureQuery.execute();
 
         List<?> resultado = procedureQuery.getResultList();

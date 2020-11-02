@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface UsuarioService {
     Object          SP_USUARIO_CREAR(UsuarioModel usuarioModel);
-    List<Usuario>   SP_USUARIO_CONSULTAR(int id) throws ClassNotFoundException;
-    Object          SP_USUARIO_CONSULTAR_CORREO(String correo) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    List<Usuario>   SP_USUARIO_CONSULTAR(Usuario usuario) throws ClassNotFoundException;
 }

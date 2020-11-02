@@ -37,7 +37,10 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String dato_usuario) throws UsernameNotFoundException {
         try {
-            List<Usuario> usuario_encontrados = (List<Usuario>)usuarioService.SP_USUARIO_CONSULTAR_CORREO(dato_usuario);
+            Usuario usuario = new Usuario();
+            usuario.setCorreo(dato_usuario);
+
+            List<Usuario> usuario_encontrados = (List<Usuario>)usuarioService.SP_USUARIO_CONSULTAR(usuario);
 
             if (usuario_encontrados == null) {
                 throw new UsernameNotFoundException(dato_usuario);

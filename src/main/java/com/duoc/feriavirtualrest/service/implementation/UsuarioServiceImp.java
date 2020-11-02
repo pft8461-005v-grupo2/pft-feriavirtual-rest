@@ -33,7 +33,6 @@ public class UsuarioServiceImp implements UsuarioService {
     private ProcedureService procedureService;
 
 
-
     @Override
     public Object SP_USUARIO_CREAR(UsuarioModel usuarioModel) {
         try{
@@ -50,17 +49,9 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    public List<Usuario> SP_USUARIO_CONSULTAR(int id) throws ClassNotFoundException {
-        Usuario usuario = new Usuario();
-        usuario.setId(id);
+    public List<Usuario> SP_USUARIO_CONSULTAR(Usuario usuario) throws ClassNotFoundException {
         return (List<Usuario>)(procedureService.ejecutarSP(SPConstant.SP_USUARIO_CONSULTAR, Usuario.class, usuario.generarDataIN()));
     }
 
-    @Override
-    public Object SP_USUARIO_CONSULTAR_CORREO(String correo) throws ClassNotFoundException {
-        Usuario usuario = new Usuario();
-        usuario.setCorreo(correo);
-        return (List<Usuario>) (procedureService.ejecutarSP(
-                SPConstant.SP_USUARIO_CONSULTAR, Usuario.class, usuario.generarDataIN()));
-    }
+
 }
