@@ -3,7 +3,6 @@ package com.duoc.feriavirtualrest.service;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.model.UsuarioModel;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface UsuarioService {

@@ -1,19 +1,31 @@
 package com.duoc.feriavirtualrest.entity;
 
+import com.duoc.feriavirtualrest.util.SPDataIN;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "CLIENTE")
 public class Cliente {
 
     private int id;
     private int usuario_id;
     private String identificador;
-    private String razonsocial;
+    private String razonSocial;
     private String direccion;
     private String ciudad;
     private String pais_origen;
- //   private smallint tipo_cliente;
     private int tipo_cliente;
     private String correo;
     private char habilitado;
 
+    @Id
+    @Column(name = "ID")
     public int getId() {
         return id;
     }
@@ -22,6 +34,7 @@ public class Cliente {
         this.id = id;
     }
 
+    @Column(name = "USUARIO_ID")
     public int getUsuario_id() {
         return usuario_id;
     }
@@ -30,6 +43,7 @@ public class Cliente {
         this.usuario_id = usuario_id;
     }
 
+    @Column(name = "IDENTIFICADOR")
     public String getIdentificador() {
         return identificador;
     }
@@ -38,14 +52,16 @@ public class Cliente {
         this.identificador = identificador;
     }
 
-    public String getRazonsocial() {
-        return razonsocial;
+    @Column(name = "RAZONSOCIAL")
+    public String getRazonSocial() {
+        return razonSocial;
     }
 
-    public void setRazonsocial(String razonsocial) {
-        this.razonsocial = razonsocial;
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
     }
 
+    @Column(name = "DIRECCION")
     public String getDireccion() {
         return direccion;
     }
@@ -54,6 +70,7 @@ public class Cliente {
         this.direccion = direccion;
     }
 
+    @Column(name = "CIUDAD")
     public String getCiudad() {
         return ciudad;
     }
@@ -62,6 +79,7 @@ public class Cliente {
         this.ciudad = ciudad;
     }
 
+    @Column(name = "PAIS_ORIGEN")
     public String getPais_origen() {
         return pais_origen;
     }
@@ -70,6 +88,7 @@ public class Cliente {
         this.pais_origen = pais_origen;
     }
 
+    @Column(name = "TIPO_CLIENTE")
     public int getTipo_cliente() {
         return tipo_cliente;
     }
@@ -78,6 +97,7 @@ public class Cliente {
         this.tipo_cliente = tipo_cliente;
     }
 
+    @Column(name = "CORREO")
     public String getCorreo() {
         return correo;
     }
@@ -86,6 +106,7 @@ public class Cliente {
         this.correo = correo;
     }
 
+    @Column(name = "HABILITADO")
     public char getHabilitado() {
         return habilitado;
     }
@@ -93,4 +114,22 @@ public class Cliente {
     public void setHabilitado(char habilitado) {
         this.habilitado = habilitado;
     }
+
+    public List<SPDataIN> generarDataIN(){
+        List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
+        LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
+        LISTA_SP_IN.add(new SPDataIN("IN_USUARIO_ID", Integer.class, this.usuario_id == 0 ? null : this.usuario_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_IDENTIFICADOR", String.class, this.identificador == null ? null : this.identificador));
+        LISTA_SP_IN.add(new SPDataIN("IN_RAZONSOCIAL", String.class, this.razonSocial == null ? null : this.razonSocial));
+        LISTA_SP_IN.add(new SPDataIN("IN_DIRECCION", String.class, this.direccion == null ? null : this.direccion));
+        LISTA_SP_IN.add(new SPDataIN("IN_CIUDAD", String.class, this.ciudad == null ? null : this.ciudad));
+        LISTA_SP_IN.add(new SPDataIN("IN_PAIS_ORIGEN", String.class, this.pais_origen == null ? null : this.pais_origen));
+        LISTA_SP_IN.add(new SPDataIN("IN_TIPO_CLIENTE", Integer.class, this.tipo_cliente == 0 ? null : this.tipo_cliente));
+        LISTA_SP_IN.add(new SPDataIN("IN_CORREO", String.class, this.correo == null ? null : this.correo));
+        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", String.class, this.habilitado == 0 ? null : this.habilitado));
+        return LISTA_SP_IN;
+    }
+
+
+
 }

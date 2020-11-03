@@ -6,7 +6,6 @@ import com.duoc.feriavirtualrest.model.UsuarioModel;
 import com.duoc.feriavirtualrest.repository.UsuarioRepository;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import com.duoc.feriavirtualrest.service.ProcedureService;
-import com.duoc.feriavirtualrest.util.SPDataIN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("usuarioService")
