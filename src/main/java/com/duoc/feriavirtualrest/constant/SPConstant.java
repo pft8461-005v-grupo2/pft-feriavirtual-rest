@@ -17,5 +17,6 @@ public final class SPConstant {
     // [ SP para crear ]
 
     public static final String SP_CLIENTE_CREAR = "SP_CLIENTE_CREAR";
+    public static final String SP_PRODUCTOR_CREAR = "SP_PRODUCTOR_CREAR";
 
 }

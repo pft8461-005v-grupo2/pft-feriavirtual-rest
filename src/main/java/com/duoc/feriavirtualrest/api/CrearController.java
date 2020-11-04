@@ -1,8 +1,10 @@
 package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
+import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ClienteService;
+import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class CrearController {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private ProductorService productorService;
+
     @RequestMapping(    value = "/usuario/crear",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -38,6 +43,14 @@ public class CrearController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> cliente_crear(@RequestBody Cliente cliente){
         return new ResponseEntity<Object>(clienteService.SP_CLIENTE_CREAR(cliente), HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/productor/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> productor_crear(@RequestBody Productor productor){
+        return new ResponseEntity<Object>(productorService.SP_PRODUCTOR_CREAR(productor), HttpStatus.OK);
     }
 
 }
