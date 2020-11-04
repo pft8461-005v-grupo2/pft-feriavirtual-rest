@@ -1,6 +1,8 @@
 package com.duoc.feriavirtualrest.api;
 
-import com.duoc.feriavirtualrest.model.UsuarioModel;
+import com.duoc.feriavirtualrest.entity.Cliente;
+import com.duoc.feriavirtualrest.entity.Usuario;
+import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,18 +14,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class CrearController {
 
 
     @Autowired
     private UsuarioService usuarioService;
 
-    @RequestMapping(    value = "/crear",
+    @Autowired
+    private ClienteService clienteService;
+
+    @RequestMapping(    value = "/usuario/crear",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> crear(@RequestBody UsuarioModel usuarioModel){
-        return new ResponseEntity<Object>(usuarioService.SP_USUARIO_CREAR(usuarioModel), HttpStatus.OK);
+    public ResponseEntity<Object> usuario_crear(@RequestBody Usuario usuario){
+        return new ResponseEntity<Object>(usuarioService.SP_USUARIO_CREAR(usuario), HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/cliente/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> cliente_crear(@RequestBody Cliente cliente){
+        return new ResponseEntity<Object>(clienteService.SP_CLIENTE_CREAR(cliente), HttpStatus.OK);
     }
 
 }

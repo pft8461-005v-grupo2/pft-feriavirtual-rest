@@ -2,7 +2,6 @@ package com.duoc.feriavirtualrest.service.implementation;
 
 import com.duoc.feriavirtualrest.constant.SPConstant;
 import com.duoc.feriavirtualrest.entity.Usuario;
-import com.duoc.feriavirtualrest.model.UsuarioModel;
 import com.duoc.feriavirtualrest.repository.UsuarioRepository;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import com.duoc.feriavirtualrest.service.ProcedureService;
@@ -31,18 +30,17 @@ public class UsuarioServiceImp implements UsuarioService {
 
 
     @Override
-    public Object SP_USUARIO_CREAR(UsuarioModel usuarioModel) {
+    public Object SP_USUARIO_CREAR(Usuario usuario) {
         try{
             return usuarioRepository.SP_USUARIO_CREAR(
-                    usuarioModel.getRol_id(),
-                    usuarioModel.getCorreo(),
-                    usuarioModel.getContrasena()
+                    usuario.getRol_id(),
+                    usuario.getCorreo(),
+                    usuario.getContrasena()
             );
         }catch (Exception e) {
             log.error("Error al crear un nuevo usuario", e);
             return new Object();
         }
-
     }
 
     @Override

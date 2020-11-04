@@ -34,7 +34,6 @@ import java.util.List;
 @Table(name = "USUARIO")
 public class Usuario implements Serializable {
 
-
     private int id;
     private int rol_id;
     private String correo;

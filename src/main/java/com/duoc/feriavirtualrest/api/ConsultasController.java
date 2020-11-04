@@ -1,10 +1,14 @@
 package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
+import com.duoc.feriavirtualrest.entity.Contrato;
 import com.duoc.feriavirtualrest.entity.Productor;
+import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ClienteService;
+import com.duoc.feriavirtualrest.service.ContratoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
+import com.duoc.feriavirtualrest.service.TransportistaService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +33,12 @@ public class ConsultasController {
 
     @Autowired
     private ProductorService productorService;
+
+    @Autowired
+    private TransportistaService transportistaService;
+
+    @Autowired
+    private ContratoService contratoService;
 
     @RequestMapping(    value = "/usuario/consultar",
             method = RequestMethod.POST,
@@ -59,4 +69,21 @@ public class ConsultasController {
         return new ResponseEntity<Object>(resultado, HttpStatus.OK);
     }
 
+    @RequestMapping(    value = "/transportista/consultar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> consultar_transportista(@RequestBody Transportista transportista) throws ClassNotFoundException {
+        List<Transportista> resultado = transportistaService.SP_TRANSPORTISTA_CONSULTAR(transportista);
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/contrato/consultar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> consultar_contrato(@RequestBody Contrato contrato) throws ClassNotFoundException {
+        List<Contrato> resultado = contratoService.SP_CONTRATO_CONSULTAR(contrato);
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
+    }
 }
