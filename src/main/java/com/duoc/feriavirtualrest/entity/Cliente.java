@@ -1,13 +1,37 @@
 package com.duoc.feriavirtualrest.entity;
 
+import com.duoc.feriavirtualrest.constant.SPConstant;
 import com.duoc.feriavirtualrest.util.SPDataIN;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = SPConstant.SP_CLIENTE_CREAR,
+                procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_CLIENTE_CREAR,
+                parameters = {
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_USUARIO_ID", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_IDENTIFICADOR", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_RAZON_SOCIAL", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_DIRECCION", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CIUDAD", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_PAIS_ORIGEN", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_TIPO_CLIENTE", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CORREO", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
+                })
+})
 
 @Entity
 @Table(name = "CLIENTE")
