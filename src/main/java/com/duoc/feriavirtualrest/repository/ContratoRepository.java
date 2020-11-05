@@ -15,7 +15,6 @@ public interface ContratoRepository extends CrudRepository<Contrato, Long> {
     @Procedure(name = SPConstant.SP_CONTRATO_CREAR)
     Object SP_CONTRATO_CREAR(
             @Param("IN_FECHAINICIO") Date IN_FECHAINICIO,
-            @Param("IN_FECHATERMINO") Date IN_FECHATERMINO,
-            @Param("IN_FECHACREACION") Date IN_FECHACREACION
+            @Param("IN_FECHATERMINO") Date IN_FECHATERMINO
     );
 }

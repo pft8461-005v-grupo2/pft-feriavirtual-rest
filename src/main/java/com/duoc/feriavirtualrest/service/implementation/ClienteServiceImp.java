@@ -46,6 +46,26 @@ public class ClienteServiceImp implements ClienteService {
     }
 
     @Override
+    public Object SP_CLIENTE_ACTUALIZAR(Cliente cliente) {
+        try{
+            return clienteRepository.SP_CLIENTE_ACTUALIZAR(
+                    cliente.getId(),
+                    cliente.getIdentificador(),
+                    cliente.getRazonSocial(),
+                    cliente.getDireccion(),
+                    cliente.getCiudad(),
+                    cliente.getPais_origen(),
+                    cliente.getTipo_cliente(),
+                    cliente.getCorreo(),
+                    cliente.getHabilitado()
+            );
+        }catch (Exception e) {
+            log.error("Error al actualizar un nuevo cliente", e);
+            return new Object();
+        }
+    }
+
+    @Override
     public List<Cliente> SP_CLIENTE_CONSULTAR(Cliente cliente) throws ClassNotFoundException {
         return (List<Cliente>)(procedureService.ejecutarSP(SPConstant.SP_CLIENTE_CONSULTAR, Cliente.class, cliente.generarDataIN()));
 

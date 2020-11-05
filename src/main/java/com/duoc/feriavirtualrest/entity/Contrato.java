@@ -21,8 +21,7 @@ import java.util.List;
                 procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_CONTRATO_CREAR,
                 parameters = {
                         @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_FECHAINICIO", type=Date.class),
-                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_FECHATERMINO", type=Date.class),
-                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_FECHACREACION", type= Date.class)
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_FECHATERMINO", type=Date.class)
                 })
 })
 @Entity
@@ -33,7 +32,7 @@ public class Contrato {
     private Date fechainicio;
     private Date fechatermino;
     private Date fechacreacion;
-    private char vigencia;
+    private int vigencia;
 
     public Contrato() {
     }
@@ -45,7 +44,7 @@ public class Contrato {
     }
 
     @Column(name = "VIGENCIA")
-    public char getVigencia() {
+    public int getVigencia() {
         return vigencia;
     }
 
@@ -68,7 +67,7 @@ public class Contrato {
         this.id = id;
     }
 
-    public void setVigencia(char vigencia) {
+    public void setVigencia(int vigencia) {
         this.vigencia = vigencia;
     }
 
@@ -90,7 +89,7 @@ public class Contrato {
         LISTA_SP_IN.add(new SPDataIN("IN_FECHAINICIO", Date.class, this.fechainicio == null ? null : this.fechainicio));
         LISTA_SP_IN.add(new SPDataIN("IN_FECHATERMINO", Date.class, this.fechatermino == null ? null : this.fechatermino));
         LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", Date.class, this.fechacreacion == null ? null : this.fechacreacion));
-        LISTA_SP_IN.add(new SPDataIN("IN_VIGENCIA", String.class, this.vigencia == 0 ? null : this.vigencia));
+        LISTA_SP_IN.add(new SPDataIN("IN_VIGENCIA", Integer.class, this.vigencia == 0 ? null : this.vigencia));
         return LISTA_SP_IN;
     }
 }
