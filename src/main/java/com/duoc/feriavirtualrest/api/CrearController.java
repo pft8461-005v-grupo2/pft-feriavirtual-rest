@@ -3,11 +3,13 @@ package com.duoc.feriavirtualrest.api;
 import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Contrato;
 import com.duoc.feriavirtualrest.entity.Productor;
+import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.model.ContratoModel;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
+import com.duoc.feriavirtualrest.service.TransportistaService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import oracle.sql.DATE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping("/api")
@@ -39,6 +40,9 @@ public class CrearController {
 
     @Autowired
     private ContratoService contratoService;
+
+    @Autowired
+    private TransportistaService transportistaService;
 
     @RequestMapping(    value = "/usuario/crear",
             method = RequestMethod.POST,
@@ -63,6 +67,15 @@ public class CrearController {
     public ResponseEntity<Object> productor_crear(@RequestBody Productor productor){
         return new ResponseEntity<Object>(productorService.SP_PRODUCTOR_CREAR(productor), HttpStatus.OK);
     }
+
+    @RequestMapping(    value = "/transportista/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> transportista_crear(@RequestBody Transportista transportista){
+        return new ResponseEntity<Object>(transportistaService.SP_TRANSPORTISTA_CREAR(transportista), HttpStatus.OK);
+    }
+
 
     @RequestMapping(    value = "/contrato/crear",
             method = RequestMethod.POST,
