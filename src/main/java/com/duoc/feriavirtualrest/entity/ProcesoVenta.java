@@ -23,7 +23,7 @@ public class ProcesoVenta implements Serializable {
     private int subasta_id;
     private int etapa;
     private Date fechacreacion;
-    private char clienteaceptaacuerdo;
+    private int clienteaceptaacuerdo;
     private int precioventatotal;
     private int preciocostototal;
 
@@ -83,11 +83,11 @@ public class ProcesoVenta implements Serializable {
     }
 
     @Column(name = "clienteaceptaacuerdo")
-    public char getClienteaceptaacuerdo() {
+    public int getClienteaceptaacuerdo() {
         return clienteaceptaacuerdo;
     }
 
-    public void setClienteaceptaacuerdo(char clienteaceptaacuerdo) {
+    public void setClienteaceptaacuerdo(int clienteaceptaacuerdo) {
         this.clienteaceptaacuerdo = clienteaceptaacuerdo;
     }
     @Column(name = "precioventatotal")

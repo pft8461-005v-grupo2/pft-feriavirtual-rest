@@ -42,7 +42,7 @@ public class Transportista {
     private String direccion;
     private String comuna;
     private String correo;
-    private char habilitado;
+    private int habilitado;
 
     public Transportista() {
     }
@@ -84,7 +84,7 @@ public class Transportista {
     }
 
     @Column(name = "HABILITADO")
-    public char getHabilitado() {
+    public int getHabilitado() {
         return habilitado;
     }
 
@@ -116,7 +116,7 @@ public class Transportista {
         this.correo = correo;
     }
 
-    public void setHabilitado(char habilitado) {
+    public void setHabilitado(int habilitado) {
         this.habilitado = habilitado;
     }
 
@@ -129,7 +129,7 @@ public class Transportista {
         LISTA_SP_IN.add(new SPDataIN("IN_DIRECCION", String.class, this.direccion == null ? null : this.direccion));
         LISTA_SP_IN.add(new SPDataIN("IN_COMUNA", String.class, this.comuna == null ? null : this.comuna));
         LISTA_SP_IN.add(new SPDataIN("IN_CORREO", String.class, this.correo == null ? null : this.correo));
-        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", String.class, this.habilitado == 0 ? null : this.habilitado));
+        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", Integer.class, this.habilitado == 0 ? null : this.habilitado));
         return LISTA_SP_IN;
     }
 

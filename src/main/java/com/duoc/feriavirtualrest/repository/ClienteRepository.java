@@ -21,4 +21,17 @@ public interface ClienteRepository extends CrudRepository<Cliente, Long> {
             @Param("IN_TIPO_CLIENTE") int IN_TIPO_CLIENTE,
             @Param("IN_CORREO") String IN_CORREO
     );
+
+    @Procedure(name = SPConstant.SP_CLIENTE_ACTUALIZAR)
+    Object SP_CLIENTE_ACTUALIZAR(
+            @Param("IN_ID_CLIENTE") int IN_ID_CLIENTE,
+            @Param("IN_IDENTIFICADOR") String IN_IDENTIFICADOR,
+            @Param("IN_RAZON_SOCIAL") String IN_RAZON_SOCIAL,
+            @Param("IN_DIRECCION") String IN_DIRECCION,
+            @Param("IN_CIUDAD") String IN_CIUDAD,
+            @Param("IN_PAIS_ORIGEN") String IN_PAIS_ORIGEN,
+            @Param("IN_TIPO_CLIENTE") int IN_TIPO_CLIENTE,
+            @Param("IN_CORREO") String IN_CORREO,
+            @Param("IN_HABILITADO") Integer IN_HABILITADO
+    );
 }

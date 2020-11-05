@@ -35,8 +35,7 @@ public class ContratoServiceImp implements ContratoService {
         try{
             return contratoRepository.SP_CONTRATO_CREAR(
                     contrato.getFechainicio(),
-                    contrato.getFechatermino(),
-                    contrato.getFechacreacion()
+                    contrato.getFechatermino()
             );
         }catch (Exception e) {
             log.error("Error al crear un nuevo contrato", e);

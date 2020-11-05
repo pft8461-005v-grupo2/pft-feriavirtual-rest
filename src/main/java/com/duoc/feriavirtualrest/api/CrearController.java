@@ -11,7 +11,6 @@ import com.duoc.feriavirtualrest.service.ContratoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.TransportistaService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
-import oracle.sql.DATE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

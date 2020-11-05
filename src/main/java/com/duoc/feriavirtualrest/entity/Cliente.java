@@ -30,7 +30,24 @@ import java.util.List;
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
-                })
+                }),
+        @NamedStoredProcedureQuery(
+                name = SPConstant.SP_CLIENTE_ACTUALIZAR,
+                procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_CLIENTE_ACTUALIZAR,
+                parameters = {
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_ID_CLIENTE", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_IDENTIFICADOR", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_RAZON_SOCIAL", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_DIRECCION", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CIUDAD", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_PAIS_ORIGEN", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_TIPO_CLIENTE", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CORREO", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_HABILITADO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
+                }),
 })
 @Entity
 @Table(name = "CLIENTE")
@@ -45,7 +62,7 @@ public class Cliente {
     private String pais_origen;
     private int tipo_cliente;
     private String correo;
-    private char habilitado;
+    private int habilitado;
 
     @Id
     @Column(name = "ID")
@@ -130,11 +147,11 @@ public class Cliente {
     }
 
     @Column(name = "HABILITADO")
-    public char getHabilitado() {
+    public int getHabilitado() {
         return habilitado;
     }
 
-    public void setHabilitado(char habilitado) {
+    public void setHabilitado(int habilitado) {
         this.habilitado = habilitado;
     }
 
@@ -149,7 +166,7 @@ public class Cliente {
         LISTA_SP_IN.add(new SPDataIN("IN_PAIS_ORIGEN", String.class, this.pais_origen == null ? null : this.pais_origen));
         LISTA_SP_IN.add(new SPDataIN("IN_TIPO_CLIENTE", Integer.class, this.tipo_cliente == 0 ? null : this.tipo_cliente));
         LISTA_SP_IN.add(new SPDataIN("IN_CORREO", String.class, this.correo == null ? null : this.correo));
-        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", String.class, this.habilitado == 0 ? null : this.habilitado));
+        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", Integer.class, this.habilitado == 0 ? null : this.habilitado));
         return LISTA_SP_IN;
     }
 

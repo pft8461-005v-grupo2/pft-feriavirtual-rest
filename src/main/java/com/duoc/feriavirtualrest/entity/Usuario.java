@@ -38,7 +38,7 @@ public class Usuario implements Serializable {
     private int rol_id;
     private String correo;
     private String contrasena;
-    private char habilitado;
+    private int habilitado;
 
     public void setId(int id) {
         this.id = id;
@@ -78,11 +78,11 @@ public class Usuario implements Serializable {
     }
 
     @Column(name = "HABILITADO")
-    public char getHabilitado() {
+    public int getHabilitado() {
         return habilitado;
     }
 
-    public void setHabilitado(char habilitado) {
+    public void setHabilitado(int habilitado) {
         this.habilitado = habilitado;
     }
 
@@ -92,7 +92,7 @@ public class Usuario implements Serializable {
         LISTA_SP_IN.add(new SPDataIN("IN_ROL_ID", Integer.class, this.rol_id == 0 ? null : this.rol_id));
         LISTA_SP_IN.add(new SPDataIN("IN_CORREO", String.class, this.correo == null ? null : this.correo));
         LISTA_SP_IN.add(new SPDataIN("IN_CONTRASENA", String.class, this.contrasena == null ? null : this.contrasena));
-        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", String.class, this.habilitado == 0 ? null : this.habilitado));
+        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", Integer.class, this.habilitado == 0 ? null : this.habilitado));
         return LISTA_SP_IN;
     }
 
