@@ -29,6 +29,7 @@ import java.util.List;
 public class Contrato {
 
     private int id;
+    private int productor_id;
     private Date fechainicio;
     private Date fechatermino;
     private Date fechacreacion;
@@ -41,6 +42,11 @@ public class Contrato {
     @Column(name = "ID")
     public int getId() {
         return id;
+    }
+
+    @Column(name = "PRODUCTOR_ID")
+    public int getProductor_id() {
+        return productor_id;
     }
 
     @Column(name = "VIGENCIA")
@@ -67,6 +73,10 @@ public class Contrato {
         this.id = id;
     }
 
+    public void setProductor_id(int productor_id) {
+        this.productor_id = productor_id;
+    }
+
     public void setVigencia(int vigencia) {
         this.vigencia = vigencia;
     }
@@ -86,6 +96,7 @@ public class Contrato {
     public List<SPDataIN> generarDataIN(){
         List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
         LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
+        LISTA_SP_IN.add(new SPDataIN("IN_PRODUCTOR_ID", Integer.class, this.productor_id == 0 ? null : this.productor_id));
         LISTA_SP_IN.add(new SPDataIN("IN_FECHAINICIO", Date.class, this.fechainicio == null ? null : this.fechainicio));
         LISTA_SP_IN.add(new SPDataIN("IN_FECHATERMINO", Date.class, this.fechatermino == null ? null : this.fechatermino));
         LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", Date.class, this.fechacreacion == null ? null : this.fechacreacion));

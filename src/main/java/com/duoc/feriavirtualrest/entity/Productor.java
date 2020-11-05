@@ -21,12 +21,27 @@ import java.util.List;
                 procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_PRODUCTOR_CREAR,
                 parameters = {
                         @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_USUARIO_ID", type=Integer.class),
-                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_CONTRATO_ID", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_RUT", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_RAZONSOCIAL", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_DIRECCION", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_COMUNA", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CORREO", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
+                }),
+        @NamedStoredProcedureQuery(
+                name = SPConstant.SP_PRODUCTOR_ACTUALIZAR,
+                procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_PRODUCTOR_ACTUALIZAR,
+                parameters = {
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_ID_PRODUCTOR", type=Integer.class),
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_USUARIO_ID", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_RUT", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_RAZONSOCIAL", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_DIRECCION", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_COMUNA", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CORREO", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_HABILITADO", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
@@ -38,7 +53,6 @@ public class Productor {
 
     private int id;
     private int usuario_id;
-    private int contrato_id;
     private String rut;
     private String razonsocial;
     private String direccion;
@@ -55,11 +69,6 @@ public class Productor {
     @Column(name = "USUARIO_ID")
     public int getUsuario_id() {
         return usuario_id;
-    }
-
-    @Column(name = "CONTRATO_ID")
-    public int getContrato_id() {
-        return contrato_id;
     }
 
     @Column(name = "RUT")
@@ -100,10 +109,6 @@ public class Productor {
         this.usuario_id = usuario_id;
     }
 
-    public void setContrato_id(int contrato_id) {
-        this.contrato_id = contrato_id;
-    }
-
     public void setRut(String rut) {
         this.rut = rut;
     }
@@ -132,7 +137,6 @@ public class Productor {
         List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
         LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
         LISTA_SP_IN.add(new SPDataIN("IN_USUARIO_ID", Integer.class, this.usuario_id == 0 ? null : this.usuario_id));
-        LISTA_SP_IN.add(new SPDataIN("IN_CONTRATO_ID", Integer.class, this.contrato_id == 0 ? null : this.contrato_id));
         LISTA_SP_IN.add(new SPDataIN("IN_RUT", String.class, this.rut == null ? null : this.rut));
         LISTA_SP_IN.add(new SPDataIN("IN_RAZONSOCIAL", String.class, this.razonsocial == null ? null : this.razonsocial));
         LISTA_SP_IN.add(new SPDataIN("IN_DIRECCION", String.class, this.direccion == null ? null : this.direccion));

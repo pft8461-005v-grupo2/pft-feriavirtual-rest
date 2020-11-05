@@ -29,6 +29,22 @@ import java.util.List;
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
+                }),
+        @NamedStoredProcedureQuery(
+                name = SPConstant.SP_TRANSPORTISTA_ACTUALIZAR,
+                procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_TRANSPORTISTA_ACTUALIZAR,
+                parameters = {
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_ID_TRANSPORTISTA", type=Integer.class),
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_USUARIO_ID", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_RUT", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_RAZON_SOCIAL", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_DIRECCION", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_COMUNA", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CORREO", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_HABILITADO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
                 })
 })
 @Entity

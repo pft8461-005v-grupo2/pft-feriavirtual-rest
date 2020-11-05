@@ -30,7 +30,6 @@ public class ProductorServiceImp implements ProductorService {
         try{
             return productorRepository.SP_PRODUCTOR_CREAR(
                     productor.getUsuario_id(),
-                    productor.getContrato_id(),
                     productor.getRut(),
                     productor.getRazonsocial(),
                     productor.getDireccion(),
@@ -39,6 +38,25 @@ public class ProductorServiceImp implements ProductorService {
             );
         }catch (Exception e) {
             log.error("Error al crear un nuevo productor", e);
+            return new Object();
+        }
+    }
+
+    @Override
+    public Object SP_PRODUCTOR_ACTUALIZAR(Productor productor) {
+        try{
+            return productorRepository.SP_PRODUCTOR_ACTUALIZAR(
+                    productor.getId(),
+                    productor.getUsuario_id(),
+                    productor.getRut(),
+                    productor.getRazonsocial(),
+                    productor.getDireccion(),
+                    productor.getComuna(),
+                    productor.getCorreo(),
+                    productor.getHabilitado()
+            );
+        }catch (Exception e) {
+            log.error("Error al actualizar un nuevo productor", e);
             return new Object();
         }
     }

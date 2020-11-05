@@ -23,5 +23,7 @@ public final class SPConstant {
 
     // [SP para actualizar ]
     public static final String SP_CLIENTE_ACTUALIZAR = "SP_CLIENTE_ACTUALIZAR";
+    public static final String SP_PRODUCTOR_ACTUALIZAR = "SP_PRODUCTOR_ACTUALIZAR";
+    public static final String SP_TRANSPORTISTA_ACTUALIZAR = "SP_TRANSPORTISTA_ACTUALIZAR";
 
 }
