@@ -44,6 +44,25 @@ public class TransportistaServiceImp implements TransportistaService {
     }
 
     @Override
+    public Object SP_TRANSPORTISTA_ACTUALIZAR(Transportista transportista) {
+        try{
+            return transportistaRepository.SP_TRANSPORTISTA_ACTUALIZAR(
+                    transportista.getId(),
+                    transportista.getUsuario_id(),
+                    transportista.getRut(),
+                    transportista.getRazonsocial(),
+                    transportista.getDireccion(),
+                    transportista.getComuna(),
+                    transportista.getCorreo(),
+                    transportista.getHabilitado()
+            );
+        }catch (Exception e) {
+            log.error("Error al crear un nuevo transportista", e);
+            return new Object();
+        }
+    }
+
+    @Override
     public List<Transportista> SP_TRANSPORTISTA_CONSULTAR(Transportista transportista) throws ClassNotFoundException {
         return (List<Transportista>)(procedureService.ejecutarSP(SPConstant.SP_TRANSPORTISTA_CONSULTAR, Transportista.class, transportista.generarDataIN()));
     }

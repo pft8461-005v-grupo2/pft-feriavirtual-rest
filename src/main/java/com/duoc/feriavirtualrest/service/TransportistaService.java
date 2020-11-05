@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface TransportistaService {
     Object  SP_TRANSPORTISTA_CREAR(Transportista transportista);
+    Object  SP_TRANSPORTISTA_ACTUALIZAR(Transportista transportista);
     List<Transportista> SP_TRANSPORTISTA_CONSULTAR(Transportista transportista) throws ClassNotFoundException;
 }

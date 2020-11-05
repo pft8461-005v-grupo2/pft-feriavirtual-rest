@@ -20,5 +20,16 @@ public interface TransportistaRepository extends CrudRepository<Transportista, L
             @Param("IN_CORREO") String IN_CORREO
     );
 
+    @Procedure(name = SPConstant.SP_TRANSPORTISTA_ACTUALIZAR)
+    Object SP_TRANSPORTISTA_ACTUALIZAR(
+            @Param("IN_ID_TRANSPORTISTA") int IN_ID_TRANSPORTISTA,
+            @Param("IN_USUARIO_ID") int IN_USUARIO_ID,
+            @Param("IN_RUT") String IN_RUT,
+            @Param("IN_RAZON_SOCIAL") String IN_RAZON_SOCIAL,
+            @Param("IN_DIRECCION") String IN_DIRECCION,
+            @Param("IN_COMUNA") String IN_COMUNA,
+            @Param("IN_CORREO") String IN_CORREO,
+            @Param("IN_HABILITADO") int IN_HABILITADO
+    );
 
 }

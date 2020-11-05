@@ -13,12 +13,23 @@ public interface ProductorRepository extends CrudRepository<Productor, Long> {
     @Procedure(name = SPConstant.SP_PRODUCTOR_CREAR)
     Object SP_PRODUCTOR_CREAR(
             @Param("IN_USUARIO_ID") int IN_USUARIO_ID,
-            @Param("IN_CONTRATO_ID") int IN_CONTRATO_ID,
             @Param("IN_RUT") String IN_RUT,
             @Param("IN_RAZONSOCIAL") String IN_RAZONSOCIAL,
             @Param("IN_DIRECCION") String IN_DIRECCION,
             @Param("IN_COMUNA") String IN_COMUNA,
             @Param("IN_CORREO") String IN_CORREO
+    );
+
+    @Procedure(name = SPConstant.SP_PRODUCTOR_ACTUALIZAR)
+    Object SP_PRODUCTOR_ACTUALIZAR(
+            @Param("IN_ID_PRODUCTOR") int IN_ID_PRODUCTOR,
+            @Param("IN_USUARIO_ID") int IN_USUARIO_ID,
+            @Param("IN_RUT") String IN_RUT,
+            @Param("IN_RAZONSOCIAL") String IN_RAZONSOCIAL,
+            @Param("IN_DIRECCION") String IN_DIRECCION,
+            @Param("IN_COMUNA") String IN_COMUNA,
+            @Param("IN_CORREO") String IN_CORREO,
+            @Param("IN_HABILITADO") int IN_HABILITADO
     );
 
 }
