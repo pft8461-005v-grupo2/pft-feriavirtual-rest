@@ -32,7 +32,6 @@ import java.util.List;
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
                 })
 })
-
 @Entity
 @Table(name = "CLIENTE")
 public class Cliente {

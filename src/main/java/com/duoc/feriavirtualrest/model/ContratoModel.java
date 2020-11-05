@@ -4,11 +4,10 @@ import java.util.Date;
 public class ContratoModel {
 
     private int id;
-    private int productor_id;
-    private Date fechaInicio;
-    private Date fechaTermino;
-    private Date fechaCreacion;
-    private char vigencia;
+    private String fechainicio;
+    private String fechatermino;
+    private String fechacreacion;
+    private String vigencia;
 
     public ContratoModel() {
     }
@@ -21,39 +20,35 @@ public class ContratoModel {
         this.id = id;
     }
 
-    public int getProductor_id() {
-        return productor_id;
+    public String getFechainicio() {
+        return fechainicio;
     }
 
-    public void setProductor_id(int productor_id) {
-        this.productor_id = productor_id;
+    public void setFechainicio(String fechainicio) {
+        this.fechainicio = fechainicio;
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
+    public String getFechatermino() {
+        return fechatermino;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFechatermino(String fechatermino) {
+        this.fechatermino = fechatermino;
     }
 
-    public Date getFechaTermino() {
-        return fechaTermino;
+    public String getFechacreacion() {
+        return fechacreacion;
     }
 
-    public void setFechaTermino(Date fechaTermino) {
-        this.fechaTermino = fechaTermino;
+    public void setFechacreacion(String fechacreacion) {
+        this.fechacreacion = fechacreacion;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public String getVigencia() {
+        return vigencia;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setVigencia(String vigencia) {
+        this.vigencia = vigencia;
     }
-
-    public char getVigencia() { return vigencia; }
-
-    public void setVigencia(char vigencia) { this.vigencia = vigencia; }
 }
