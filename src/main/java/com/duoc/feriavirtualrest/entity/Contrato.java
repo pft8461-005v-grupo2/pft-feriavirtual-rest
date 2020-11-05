@@ -1,15 +1,30 @@
 package com.duoc.feriavirtualrest.entity;
 
+import com.duoc.feriavirtualrest.constant.SPConstant;
 import com.duoc.feriavirtualrest.util.SPDataIN;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = SPConstant.SP_CONTRATO_CREAR,
+                procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_CONTRATO_CREAR,
+                parameters = {
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_FECHAINICIO", type=Date.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_FECHATERMINO", type=Date.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_FECHACREACION", type= Date.class)
+                })
+})
 @Entity
 @Table(name = "CONTRATO")
 public class Contrato {
@@ -29,6 +44,11 @@ public class Contrato {
         return id;
     }
 
+    @Column(name = "VIGENCIA")
+    public char getVigencia() {
+        return vigencia;
+    }
+
     @Column(name = "FECHAINICIO")
     public Date getFechainicio() {
         return fechainicio;
@@ -44,13 +64,12 @@ public class Contrato {
         return fechacreacion;
     }
 
-    @Column(name = "VIGENCIA")
-    public char getVigencia() {
-        return vigencia;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setVigencia(char vigencia) {
+        this.vigencia = vigencia;
     }
 
     public void setFechainicio(Date fechainicio) {
@@ -63,10 +82,6 @@ public class Contrato {
 
     public void setFechacreacion(Date fechacreacion) {
         this.fechacreacion = fechacreacion;
-    }
-
-    public void setVigencia(char vigencia) {
-        this.vigencia = vigencia;
     }
 
     public List<SPDataIN> generarDataIN(){

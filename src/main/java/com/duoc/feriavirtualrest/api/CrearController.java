@@ -1,11 +1,15 @@
 package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
+import com.duoc.feriavirtualrest.entity.Contrato;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Usuario;
+import com.duoc.feriavirtualrest.model.ContratoModel;
 import com.duoc.feriavirtualrest.service.ClienteService;
+import com.duoc.feriavirtualrest.service.ContratoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
+import oracle.sql.DATE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping("/api")
@@ -28,6 +36,9 @@ public class CrearController {
 
     @Autowired
     private ProductorService productorService;
+
+    @Autowired
+    private ContratoService contratoService;
 
     @RequestMapping(    value = "/usuario/crear",
             method = RequestMethod.POST,
@@ -52,5 +63,19 @@ public class CrearController {
     public ResponseEntity<Object> productor_crear(@RequestBody Productor productor){
         return new ResponseEntity<Object>(productorService.SP_PRODUCTOR_CREAR(productor), HttpStatus.OK);
     }
+
+    @RequestMapping(    value = "/contrato/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> contrato_crear(@RequestBody ContratoModel contratoModel) throws ParseException {
+        Contrato contrato = new Contrato();
+        contrato.setFechainicio(Date.valueOf(contratoModel.getFechacreacion()));
+        contrato.setFechatermino(Date.valueOf(contratoModel.getFechatermino()));
+        contrato.setFechacreacion(Date.valueOf(contratoModel.getFechacreacion()));
+        return new ResponseEntity<Object>(contratoService.SP_CONTRATO_CREAR(contrato), HttpStatus.OK);
+    }
+
+
 
 }
