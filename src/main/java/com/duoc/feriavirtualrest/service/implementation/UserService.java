@@ -75,6 +75,6 @@ public class UserService implements UserDetailsService {
     }
 
     private User buildUser(Usuario usuario, List<GrantedAuthority> authorities) {
-        return new User(usuario.getCorreo(), usuario.getContrasena(), (usuario.getHabilitado() == '1'), true, true, true, authorities);
+        return new User(usuario.getCorreo(), usuario.getContrasena(), (usuario.getHabilitado() == 1), true, true, true, authorities);
     }
 }
