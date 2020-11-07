@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 .authorizeRequests()
                 .antMatchers("/", "/public/**").permitAll()
                 .antMatchers(staticResources).permitAll()
-                //.anyRequest().authenticated()
+                // .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/logincheck")
                 .usernameParameter("usuario").passwordParameter("contrasena").defaultSuccessUrl("/loginsuccess").failureUrl("/login?error=true")
@@ -50,6 +50,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll()
                 .and()
                 .logout().deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe()
+                .key("unique-and-secret")
+                .rememberMeParameter("unique-remember-me")
+                .rememberMeCookieName("remember-me-cookie")
+                .tokenValiditySeconds(20 * 60 * 60)
         ;
     }
 
