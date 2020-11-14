@@ -47,7 +47,7 @@ import java.util.List;
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
-                }),
+                })
 })
 @Entity
 @Table(name = "CLIENTE")
@@ -169,7 +169,4 @@ public class Cliente {
         LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", Integer.class, this.habilitado == 0 ? null : this.habilitado));
         return LISTA_SP_IN;
     }
-
-
-
 }

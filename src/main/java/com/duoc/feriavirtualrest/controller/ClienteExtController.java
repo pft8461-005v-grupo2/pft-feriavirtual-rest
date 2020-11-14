@@ -15,4 +15,16 @@ public class ClienteExtController {
     public String home (){
         return ViewConstant.V_CE_HOME;
     }
+
+    @GetMapping("/ingresar_pedido")
+    public String ingresar_pedido (){
+        return "/clienteext/ingresarpedido";
+    }
+
+
+
+
+
+
+
 }
