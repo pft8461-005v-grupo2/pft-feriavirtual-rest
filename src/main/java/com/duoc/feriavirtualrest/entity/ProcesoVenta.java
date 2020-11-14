@@ -18,7 +18,6 @@ import java.util.List;
 public class ProcesoVenta implements Serializable {
 
     private int id;
-    private int ingreso_id;
     private int solicitud_compra_id;
     private int subasta_id;
     private int etapa;
@@ -35,15 +34,6 @@ public class ProcesoVenta implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Column(name = "ingreso_id")
-    public int getIngreso_id() {
-        return ingreso_id;
-    }
-
-    public void setIngreso_id(int ingreso_id) {
-        this.ingreso_id = ingreso_id;
     }
 
     @Column(name = "solicitud_compra_id")
@@ -111,7 +101,6 @@ public class ProcesoVenta implements Serializable {
     public List<SPDataIN> generarDataIN(){
         List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
         LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
-        LISTA_SP_IN.add(new SPDataIN("IN_INGRESO_ID", Integer.class, this.ingreso_id == 0 ? null : this.ingreso_id));
         LISTA_SP_IN.add(new SPDataIN("IN_SOLICITUD_COMPRA_ID", Integer.class, this.solicitud_compra_id == 0 ? null : this.solicitud_compra_id));
         LISTA_SP_IN.add(new SPDataIN("IN_SUBASTA_ID", Integer.class, this.subasta_id == 0 ? null : this.subasta_id));
         LISTA_SP_IN.add(new SPDataIN("IN_ETAPA", Integer.class, this.etapa == 0 ? null : this.etapa));

@@ -21,7 +21,7 @@ public class ProductorController {
     @Autowired
     private ProcesoVentaService procesoVentaService;
 
-    @GetMapping("/home")
+        @GetMapping("/home")
     public ModelAndView home (Model model) throws ClassNotFoundException {
         ModelAndView vista = new ModelAndView(ViewConstant.V_P_HOME);
 
