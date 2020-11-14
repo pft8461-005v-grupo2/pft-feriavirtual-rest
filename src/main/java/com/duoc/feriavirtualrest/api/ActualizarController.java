@@ -2,11 +2,13 @@ package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Productor;
+import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
+import com.duoc.feriavirtualrest.service.SolicitudCompraService;
 import com.duoc.feriavirtualrest.service.TransportistaService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class ActualizarController {
     @Autowired
     private TransportistaService transportistaService;
 
+    @Autowired
+    private SolicitudCompraService solicitudCompraService;
+
     @RequestMapping(    value = "/cliente/actualizar",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -59,6 +64,14 @@ public class ActualizarController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> transportista_actualizar(@RequestBody Transportista transportista){
         return new ResponseEntity<Object>(transportistaService.SP_TRANSPORTISTA_ACTUALIZAR(transportista), HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/solicitud-compra/actualizar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> solicitud_compra_actualizar(@RequestBody Solicitud_compra solicitud_compra){
+        return new ResponseEntity<Object>(solicitudCompraService.SP_SOLICITUD_COMPRA_ACTUALIZAR(solicitud_compra), HttpStatus.OK);
     }
 
 }

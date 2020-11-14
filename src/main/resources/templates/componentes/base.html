@@ -31,7 +31,7 @@
                             <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-link" href="#">Cliente Externo</a>
                             <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" href="#">Pedidos Intenacionales</a>
                             <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')" class="nav-link" href="#">Subastas disponibles</a>
-                            <a sec:authorize="hasAuthority('ROLE_CLIENTE_EXTERNO')" class="nav-link" href="#">Ingresar pedido</a>
+                            <a sec:authorize="hasAuthority('ROLE_CLIENTE_EXTERNO')" class="nav-link" th:href="@{/clienteext/ingresar_pedido}">Ingresar pedido</a>
                             <a sec:authorize="hasAuthority('ROLE_CLIENTE_INTERNO')" class="nav-link" href="#">Ver productos nacionales</a>
                         </li>
                         <li class="nav-item">
