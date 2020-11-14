@@ -2,7 +2,7 @@ package com.duoc.feriavirtualrest.entity;
 
 import com.duoc.feriavirtualrest.constant.SPConstant;
 import com.duoc.feriavirtualrest.util.SPDataIN;
-import oracle.sql.DATE;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +34,6 @@ import java.util.List;
                 procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_SOLICITUD_COMPRA_ACTUALIZAR,
                 parameters = {
                         @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_ID_SOLICITUD_COMPRA", type=Integer.class),
-                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CLIENTE_ID", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_PRODUCTO", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_KILOGRAMOS", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_HABILITADO", type=Integer.class),
@@ -47,21 +46,21 @@ import java.util.List;
 @Table(name = "SOLICITUD_COMPRA")
 public class Solicitud_compra {
 
-    private int id;
-    private int cliente_id;
+    private Integer id;
+    private Integer cliente_id;
     private Date fechacreacion;
     private String producto;
-    private int kilogramos;
-    private int habilitado;
+    private Integer kilogramos;
+    private Integer habilitado;
 
     @Id
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Column(name = "CLIENTE_ID")
-    public int getCliente_id() {
+    public Integer getCliente_id() {
         return cliente_id;
     }
 
@@ -76,20 +75,20 @@ public class Solicitud_compra {
     }
 
     @Column(name = "KILOGRAMOS")
-    public int getKilogramos() {
+    public Integer getKilogramos() {
         return kilogramos;
     }
 
     @Column(name = "HABILITADO")
-    public int getHabilitado() {
+    public Integer getHabilitado() {
         return habilitado;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setCliente_id(int cliente_id) {
+    public void setCliente_id(Integer cliente_id) {
         this.cliente_id = cliente_id;
     }
 
@@ -101,22 +100,22 @@ public class Solicitud_compra {
         this.producto = producto;
     }
 
-    public void setKilogramos(int kilogramos) {
+    public void setKilogramos(Integer kilogramos) {
         this.kilogramos = kilogramos;
     }
 
-    public void setHabilitado(int habilitado) {
+    public void setHabilitado(Integer habilitado) {
         this.habilitado = habilitado;
     }
 
     public List<SPDataIN> generarDataIN(){
         List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
-        LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
-        LISTA_SP_IN.add(new SPDataIN("IN_CLIENTE_ID", Integer.class, this.cliente_id == 0 ? null : this.cliente_id));
-        LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", DATE.class, this.fechacreacion == null ? null : this.fechacreacion));
+        LISTA_SP_IN.add(new SPDataIN("IN_ID_SOLICITUD_COMPRA", Integer.class, this.id == null ? null : this.id));
+        LISTA_SP_IN.add(new SPDataIN("IN_CLIENTE_ID", Integer.class, this.cliente_id == null ? null : this.cliente_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", java.sql.Timestamp.class, this.fechacreacion == null ? null : this.fechacreacion));
         LISTA_SP_IN.add(new SPDataIN("IN_PRODUCTO", String.class, this.producto == null ? null : this.producto));
-        LISTA_SP_IN.add(new SPDataIN("IN_KILOGRAMOS", Integer.class, this.kilogramos == 0 ? null : this.kilogramos));
-        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", Integer.class, this.habilitado == 0 ? null : this.habilitado));
+        LISTA_SP_IN.add(new SPDataIN("IN_KILOGRAMOS", Integer.class, this.kilogramos == null ? null : this.kilogramos));
+        LISTA_SP_IN.add(new SPDataIN("IN_HABILITADO", Integer.class, this.habilitado == null ? null : this.habilitado));
         return LISTA_SP_IN;
     }
 }

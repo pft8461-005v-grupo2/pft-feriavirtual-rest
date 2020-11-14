@@ -47,7 +47,6 @@ public class SolicitudCompraServiceImp implements SolicitudCompraService {
         try{
             return solicitudCompraRepository.SP_SOLICITUD_COMPRA_ACTUALIZAR(
                     solicitud_compra.getId(),
-                    solicitud_compra.getCliente_id(),
                     solicitud_compra.getProducto(),
                     solicitud_compra.getKilogramos(),
                     solicitud_compra.getHabilitado()

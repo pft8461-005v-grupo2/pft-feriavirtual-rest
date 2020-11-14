@@ -19,11 +19,10 @@ public interface SolicitudCompraRepository extends CrudRepository<Solicitud_comp
 
     @Procedure(name = SPConstant.SP_SOLICITUD_COMPRA_ACTUALIZAR)
     Object SP_SOLICITUD_COMPRA_ACTUALIZAR(
-            @Param("IN_ID_SOLICITUD_COMPRA") int IN_ID_SOLICITUD_COMPRA,
-            @Param("IN_CLIENTE_ID") int IN_CLIENTE_ID,
+            @Param("IN_ID_SOLICITUD_COMPRA") Integer IN_ID_SOLICITUD_COMPRA,
             @Param("IN_PRODUCTO") String IN_PRODUCTO,
-            @Param("IN_KILOGRAMOS") int IN_KILOGRAMOS,
-            @Param("IN_HABILITADO") int IN_HABILITADO
+            @Param("IN_KILOGRAMOS") Integer IN_KILOGRAMOS,
+            @Param("IN_HABILITADO") Integer IN_HABILITADO
 
     );
 }
