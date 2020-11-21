@@ -2,6 +2,7 @@ package com.duoc.feriavirtualrest.service.implementation;
 
 import com.duoc.feriavirtualrest.constant.SPConstant;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
+import com.duoc.feriavirtualrest.model.ResponseSP;
 import com.duoc.feriavirtualrest.repository.SolicitudCompraRepository;
 import com.duoc.feriavirtualrest.service.ProcedureService;
 import com.duoc.feriavirtualrest.service.SolicitudCompraService;
@@ -38,7 +39,7 @@ public class SolicitudCompraServiceImp implements SolicitudCompraService {
             );
         }catch (Exception e) {
             log.error("Error al crear una nueva solicitud de compra", e);
-            return new Object();
+            return null;
         }
     }
 

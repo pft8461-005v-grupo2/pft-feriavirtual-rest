@@ -15,13 +15,13 @@
 
 
     <th:block th:fragment="load-menus">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top mb-5">
             <div class="container">
                 <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="navbar-brand" href="#">Administrador</a>
-                <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')"class="navbar-brand" href="#">Productor</a>
-                <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')"class="navbar-brand" href="#">Transportista</a>
-                <a sec:authorize="hasAuthority('ROLE_CLIENTE_EXTERNO')"class="navbar-brand" href="#">Cliente Internacional</a>
-                <a sec:authorize="hasAuthority('ROLE_CLIENTE_INTERNO')"class="navbar-brand" href="#">Cliente Nacional</a>
+                <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="navbar-brand" href="#">Productor</a>
+                <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')" class="navbar-brand" href="#">Transportista</a>
+                <a sec:authorize="hasAuthority('ROLE_CLIENTE_EXTERNO')" class="navbar-brand" th:href="@{/clienteext/home}">Cliente Internacional</a>
+                <a sec:authorize="hasAuthority('ROLE_CLIENTE_INTERNO')" class="navbar-brand" href="#">Cliente Nacional</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -31,7 +31,7 @@
                             <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-link" href="#">Cliente Externo</a>
                             <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" href="#">Pedidos Intenacionales</a>
                             <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')" class="nav-link" href="#">Subastas disponibles</a>
-                            <a sec:authorize="hasAuthority('ROLE_CLIENTE_EXTERNO')" class="nav-link" th:href="@{/clienteext/ingresar_pedido}">Ingresar pedido</a>
+                            <a sec:authorize="hasAuthority('ROLE_CLIENTE_EXTERNO')" class="nav-link" th:href="@{/clienteext/ingresar-pedido}">Ingresar pedido</a>
                             <a sec:authorize="hasAuthority('ROLE_CLIENTE_INTERNO')" class="nav-link" href="#">Ver productos nacionales</a>
                         </li>
                         <li class="nav-item">

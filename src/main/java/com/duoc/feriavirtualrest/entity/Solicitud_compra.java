@@ -2,7 +2,6 @@ package com.duoc.feriavirtualrest.entity;
 
 import com.duoc.feriavirtualrest.constant.SPConstant;
 import com.duoc.feriavirtualrest.util.SPDataIN;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +11,9 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,11 +71,15 @@ public class Solicitud_compra {
         return fechacreacion;
     }
 
+    @NotNull
+    @Size(min=3, max=50)
     @Column(name = "PRODUCTO")
     public String getProducto() {
         return producto;
     }
 
+    @NotNull
+    @Min(8)
     @Column(name = "KILOGRAMOS")
     public Integer getKilogramos() {
         return kilogramos;

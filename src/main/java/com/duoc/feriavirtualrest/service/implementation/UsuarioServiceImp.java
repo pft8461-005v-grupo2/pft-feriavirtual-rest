@@ -10,8 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("usuarioService")
@@ -48,5 +51,18 @@ public class UsuarioServiceImp implements UsuarioService {
         return (List<Usuario>)(procedureService.ejecutarSP(SPConstant.SP_USUARIO_CONSULTAR, Usuario.class, usuario.generarDataIN()));
     }
 
-
+    @Override
+    public Usuario obtenerUsuario() throws ClassNotFoundException {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Usuario usuario = new Usuario();
+        usuario.setCorreo(user.getUsername());
+        List<Usuario> listaUsuarioResponse = new ArrayList<>();
+        listaUsuarioResponse = this.SP_USUARIO_CONSULTAR(usuario);
+        if(!listaUsuarioResponse.isEmpty()){
+            usuario = listaUsuarioResponse.get(0);
+        }else{
+            usuario = null;
+        }
+        return usuario;
+    }
 }
