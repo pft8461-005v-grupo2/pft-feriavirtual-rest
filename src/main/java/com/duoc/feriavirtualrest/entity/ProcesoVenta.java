@@ -1,11 +1,16 @@
 package com.duoc.feriavirtualrest.entity;
 
+import com.duoc.feriavirtualrest.constant.SPConstant;
 import com.duoc.feriavirtualrest.util.SPDataIN;
 import oracle.sql.CHAR;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
@@ -13,6 +18,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = SPConstant.SP_PROCESO_VENTA_CREAR,
+                procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_PROCESO_VENTA_CREAR,
+                parameters = {
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_SOLICITUD_COMPRA_ID", type=Integer.class),
+
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
+                })
+})
 @Entity
 @Table(name = "PROCESO_VENTA")
 public class ProcesoVenta implements Serializable {
