@@ -22,6 +22,7 @@ public final class SPConstant {
     public static final String SP_CONTRATO_CREAR = "SP_CONTRATO_CREAR";
     public static final String SP_TRANSPORTISTA_CREAR = "SP_TRANSPORTISTA_CREAR";
     public static final String SP_SOLICITUD_COMPRA_CREAR = "SP_SOLICITUD_COMPRA_CREAR";
+    public static final String SP_PROCESO_VENTA_CREAR = "SP_PROCESO_VENTA_CREAR";
 
     // [SP para actualizar ]
     public static final String SP_CLIENTE_ACTUALIZAR = "SP_CLIENTE_ACTUALIZAR";
