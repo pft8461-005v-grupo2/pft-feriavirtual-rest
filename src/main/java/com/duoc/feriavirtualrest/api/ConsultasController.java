@@ -2,12 +2,14 @@ package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Contrato;
+import com.duoc.feriavirtualrest.entity.ProcesoVenta;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
+import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.SolicitudCompraService;
 import com.duoc.feriavirtualrest.service.TransportistaService;
@@ -44,6 +46,9 @@ public class ConsultasController {
 
     @Autowired
     private SolicitudCompraService solicitudCompraService;
+
+    @Autowired
+    private ProcesoVentaService procesoVentaService;
 
     @RequestMapping(    value = "/usuario/consultar",
             method = RequestMethod.POST,
@@ -98,6 +103,15 @@ public class ConsultasController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> consultar_solicitud_compra(@RequestBody Solicitud_compra solicitud_compra) throws ClassNotFoundException {
         List<Solicitud_compra> resultado = solicitudCompraService.SP_SOLICITUD_COMPRA_CONSULTAR(solicitud_compra);
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/proceso-venta/consultar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> proceso_venta_compra(@RequestBody ProcesoVenta procesoVenta) throws ClassNotFoundException {
+        List<ProcesoVenta> resultado = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVenta);
         return new ResponseEntity<Object>(resultado, HttpStatus.OK);
     }
 }

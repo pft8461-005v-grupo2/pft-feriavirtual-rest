@@ -1,12 +1,13 @@
 package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
+import com.duoc.feriavirtualrest.entity.ProcesoVenta;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.Transportista;
-import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
+import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.SolicitudCompraService;
 import com.duoc.feriavirtualrest.service.TransportistaService;
@@ -42,6 +43,9 @@ public class ActualizarController {
     @Autowired
     private SolicitudCompraService solicitudCompraService;
 
+    @Autowired
+    private ProcesoVentaService procesoVentaService;
+
     @RequestMapping(    value = "/cliente/actualizar",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -72,6 +76,14 @@ public class ActualizarController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> solicitud_compra_actualizar(@RequestBody Solicitud_compra solicitud_compra){
         return new ResponseEntity<Object>(solicitudCompraService.SP_SOLICITUD_COMPRA_ACTUALIZAR(solicitud_compra), HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/proceso-venta/actualizar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> proceso_venta_actualizar(@RequestBody ProcesoVenta procesoVenta){
+        return new ResponseEntity<Object>(procesoVentaService.SP_PROCESO_VENTA_ACTUALIZAR(procesoVenta), HttpStatus.OK);
     }
 
 }
