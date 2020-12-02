@@ -41,6 +41,22 @@ public class ProcesoVentaServiceImp implements ProcesoVentaService {
     }
 
     @Override
+    public Object SP_PROCESO_VENTA_ACTUALIZAR(ProcesoVenta procesoVenta) {
+        try{
+            return procesoVentaRepository.SP_PROCESO_VENTA_ACTUALIZAR(
+                    procesoVenta.getId(),
+                    procesoVenta.getEtapa(),
+                    procesoVenta.getClienteaceptaacuerdo(),
+                    procesoVenta.getPrecioventatotal(),
+                    procesoVenta.getPreciocostototal()
+            );
+        }catch (Exception e) {
+            log.error("Error al actualizar un proceso de venta", e);
+            return new Object();
+        }
+    }
+
+    @Override
     public List<ProcesoVenta> SP_PROCESOVENTA_CONSULTAR(ProcesoVenta procesoVenta) throws ClassNotFoundException {
         return (List<ProcesoVenta>) (procedureService.ejecutarSP(
                 SPConstant.SP_PROCESO_VENTA_CONSULTAR, ProcesoVenta.class, procesoVenta.generarDataIN()));

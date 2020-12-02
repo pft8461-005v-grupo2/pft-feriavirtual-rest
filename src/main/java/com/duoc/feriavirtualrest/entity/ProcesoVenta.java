@@ -29,55 +29,68 @@ import java.util.List;
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
+                }),
+        @NamedStoredProcedureQuery(
+                name = SPConstant.SP_PROCESO_VENTA_ACTUALIZAR,
+                procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_PROCESO_VENTA_ACTUALIZAR,
+                parameters = {
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_PROCESO_VENTA_ID", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_ETAPA", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CLIENTEACEPTAACUERDO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_PRECIOVENTATOTAL", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_PRECIOCOSTOTOTAL", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
                 })
 })
 @Entity
 @Table(name = "PROCESO_VENTA")
 public class ProcesoVenta implements Serializable {
 
-    private int id;
-    private int solicitud_compra_id;
-    private int subasta_id;
-    private int etapa;
+    private Integer id;
+    private Integer solicitud_compra_id;
+    private Integer subasta_id;
+    private Integer etapa;
     private Date fechacreacion;
-    private int clienteaceptaacuerdo;
-    private int precioventatotal;
-    private int preciocostototal;
+    private Integer clienteaceptaacuerdo;
+    private Integer precioventatotal;
+    private Integer preciocostototal;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Column(name = "solicitud_compra_id")
-    public int getSolicitud_compra_id() {
+    public Integer getSolicitud_compra_id() {
         return solicitud_compra_id;
     }
 
-    public void setSolicitud_compra_id(int solicitud_compra_id) {
+    public void setSolicitud_compra_id(Integer solicitud_compra_id) {
         this.solicitud_compra_id = solicitud_compra_id;
     }
 
     @Column(name = "subasta_id")
-    public int getSubasta_id() {
+    public Integer getSubasta_id() {
         return subasta_id;
     }
 
-    public void setSubasta_id(int subasta_id) {
+    public void setSubasta_id(Integer subasta_id) {
         this.subasta_id = subasta_id;
     }
 
     @Column(name = "etapa")
-    public int getEtapa() {
+    public Integer getEtapa() {
         return etapa;
     }
 
-    public void setEtapa(int etapa) {
+    public void setEtapa(Integer etapa) {
         this.etapa = etapa;
     }
 
@@ -91,41 +104,42 @@ public class ProcesoVenta implements Serializable {
     }
 
     @Column(name = "clienteaceptaacuerdo")
-    public int getClienteaceptaacuerdo() {
+    public Integer getClienteaceptaacuerdo() {
         return clienteaceptaacuerdo;
     }
 
-    public void setClienteaceptaacuerdo(int clienteaceptaacuerdo) {
+    public void setClienteaceptaacuerdo(Integer clienteaceptaacuerdo) {
         this.clienteaceptaacuerdo = clienteaceptaacuerdo;
     }
+
     @Column(name = "precioventatotal")
-    public int getPrecioventatotal() {
+    public Integer getPrecioventatotal() {
         return precioventatotal;
     }
 
-    public void setPrecioventatotal(int precioventatotal) {
+    public void setPrecioventatotal(Integer precioventatotal) {
         this.precioventatotal = precioventatotal;
     }
 
     @Column(name = "preciocostototal")
-    public int getPreciocostototal() {
+    public Integer getPreciocostototal() {
         return preciocostototal;
     }
 
-    public void setPreciocostototal(int preciocostototal) {
+    public void setPreciocostototal(Integer preciocostototal) {
         this.preciocostototal = preciocostototal;
     }
 
     public List<SPDataIN> generarDataIN(){
         List<SPDataIN> LISTA_SP_IN = new ArrayList<>();
-        LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == 0 ? null : this.id));
-        LISTA_SP_IN.add(new SPDataIN("IN_SOLICITUD_COMPRA_ID", Integer.class, this.solicitud_compra_id == 0 ? null : this.solicitud_compra_id));
-        LISTA_SP_IN.add(new SPDataIN("IN_SUBASTA_ID", Integer.class, this.subasta_id == 0 ? null : this.subasta_id));
-        LISTA_SP_IN.add(new SPDataIN("IN_ETAPA", Integer.class, this.etapa == 0 ? null : this.etapa));
-        LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", Date.class, this.fechacreacion == null ? null : this.fechacreacion));
-        LISTA_SP_IN.add(new SPDataIN("IN_CLIENTEACEPTAACUERDO", String.class, this.clienteaceptaacuerdo == 0 ? null : this.clienteaceptaacuerdo));
-        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOVENTATOTAL", Integer.class, this.precioventatotal == 0 ? null : this.precioventatotal));
-        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOCOSTOTOTAL", Integer.class, this.preciocostototal == 0 ? null : this.preciocostototal));
+        LISTA_SP_IN.add(new SPDataIN("IN_ID", Integer.class, this.id == null ? null : this.id));
+        LISTA_SP_IN.add(new SPDataIN("IN_SOLICITUD_COMPRA_ID", Integer.class, this.solicitud_compra_id == null ? null : this.solicitud_compra_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_SUBASTA_ID", Integer.class, this.subasta_id == null ? null : this.subasta_id));
+        LISTA_SP_IN.add(new SPDataIN("IN_ETAPA", Integer.class, this.etapa == null ? null : this.etapa));
+        LISTA_SP_IN.add(new SPDataIN("IN_FECHACREACION", java.sql.Timestamp.class, this.fechacreacion == null ? null : this.fechacreacion));
+        LISTA_SP_IN.add(new SPDataIN("IN_CLIENTEACEPTAACUERDO", String.class, this.clienteaceptaacuerdo == null ? null : this.clienteaceptaacuerdo));
+        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOVENTATOTAL", Integer.class, this.precioventatotal == null ? null : this.precioventatotal));
+        LISTA_SP_IN.add(new SPDataIN("IN_PRECIOCOSTOTOTAL", Integer.class, this.preciocostototal == null ? null : this.preciocostototal));
         return LISTA_SP_IN;
     }
 }

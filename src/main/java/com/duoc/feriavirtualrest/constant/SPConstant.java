@@ -29,5 +29,6 @@ public final class SPConstant {
     public static final String SP_PRODUCTOR_ACTUALIZAR = "SP_PRODUCTOR_ACTUALIZAR";
     public static final String SP_TRANSPORTISTA_ACTUALIZAR = "SP_TRANSPORTISTA_ACTUALIZAR";
     public static final String SP_SOLICITUD_COMPRA_ACTUALIZAR = "SP_SOLICITUD_COMPRA_ACTUALIZAR";
+    public static final String SP_PROCESO_VENTA_ACTUALIZAR = "SP_PROCESO_VENTA_ACTUALIZAR";
 
 }
