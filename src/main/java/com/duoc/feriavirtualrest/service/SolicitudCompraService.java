@@ -1,7 +1,6 @@
 package com.duoc.feriavirtualrest.service;
 
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
-import com.duoc.feriavirtualrest.model.ResponseSP;
 
 import java.util.List;
 

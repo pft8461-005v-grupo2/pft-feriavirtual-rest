@@ -36,7 +36,7 @@ public class ProcesoVentaServiceImp implements ProcesoVentaService {
 
         }catch (Exception e) {
             log.error("Error al crear un nuevo proceso de venta", e);
-            return new Object();
+            return new ProcesoVenta();
         }
     }
 

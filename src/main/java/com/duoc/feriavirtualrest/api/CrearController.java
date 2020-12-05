@@ -3,6 +3,7 @@ package com.duoc.feriavirtualrest.api;
 import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Contrato;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
+import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.Transportista;
@@ -11,6 +12,7 @@ import com.duoc.feriavirtualrest.model.ContratoModel;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaService;
+import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.SolicitudCompraService;
 import com.duoc.feriavirtualrest.service.TransportistaService;
@@ -52,6 +54,9 @@ public class CrearController {
 
     @Autowired
     private ProcesoVentaService procesoVentaService;
+
+    @Autowired
+    private ProductoService productoService;
 
     @RequestMapping(    value = "/usuario/crear",
             method = RequestMethod.POST,
@@ -110,9 +115,16 @@ public class CrearController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<Object> proceso_venta_crear(@RequestBody ProcesoVenta procesoVenta){
         return new ResponseEntity<Object>(procesoVentaService.SP_PROCESO_VENTA_CREAR(procesoVenta), HttpStatus.OK);
+    }
+
+    @RequestMapping(   value = "/producto/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> producto_crear(@RequestBody Producto producto){
+        return new ResponseEntity<Object>(productoService.SP_PRODUCTO_CREAR(producto), HttpStatus.OK);
     }
 
 }
