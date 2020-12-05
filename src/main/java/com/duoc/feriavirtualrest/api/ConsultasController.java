@@ -2,7 +2,9 @@ package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Contrato;
+import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
+import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
 import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
@@ -10,6 +12,8 @@ import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
+import com.duoc.feriavirtualrest.service.IngresoService;
+import com.duoc.feriavirtualrest.service.ProcesoVentaIngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
@@ -54,6 +58,12 @@ public class ConsultasController {
 
     @Autowired
     private ProductoService productoService;
+
+    @Autowired
+    private IngresoService ingresoService;
+
+    @Autowired
+    private ProcesoVentaIngresoService procesoVentaIngresoService;
 
     @RequestMapping(    value = "/usuario/consultar",
             method = RequestMethod.POST,
@@ -126,6 +136,24 @@ public class ConsultasController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> consultar_producto(@RequestBody Producto producto) throws ClassNotFoundException {
         List<Producto> resultado = productoService.SP_PRODUCTO_CONSULTAR(producto);
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/ingreso/consultar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> ingreso_producto(@RequestBody Ingreso ingreso) throws ClassNotFoundException {
+        List<Ingreso> resultado = ingresoService.SP_INGRESO_CONSULTAR(ingreso);
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/proceso-venta-ingreso/consultar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> proceso_venta_ingreso_consultar(@RequestBody ProcesoVentaIngreso procesoVentaIngreso) throws ClassNotFoundException {
+        List<ProcesoVentaIngreso> resultado = procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_CONSULTAR(procesoVentaIngreso);
         return new ResponseEntity<Object>(resultado, HttpStatus.OK);
     }
 }

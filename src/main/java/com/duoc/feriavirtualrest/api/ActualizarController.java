@@ -1,13 +1,17 @@
 package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
+import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
+import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
 import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
+import com.duoc.feriavirtualrest.service.IngresoService;
+import com.duoc.feriavirtualrest.service.ProcesoVentaIngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
@@ -50,6 +54,12 @@ public class ActualizarController {
 
     @Autowired
     private ProcesoVentaService procesoVentaService;
+
+    @Autowired
+    private IngresoService ingresoService;
+
+    @Autowired
+    private ProcesoVentaIngresoService procesoVentaIngresoService;
 
     @RequestMapping(    value = "/cliente/actualizar",
             method = RequestMethod.POST,
@@ -97,6 +107,22 @@ public class ActualizarController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> producto_actualizar(@RequestBody Producto producto){
         return new ResponseEntity<Object>(productoService.SP_PRODUCTO_ACTUALIZAR(producto), HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/ingreso/actualizar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> ingreso_actualizar(@RequestBody Ingreso ingreso){
+        return new ResponseEntity<Object>(ingresoService.SP_INGRESO_ACTUALIZAR(ingreso), HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/proceso-venta-ingreso/actualizar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> proceso_venta_ingreso_actualizar(@RequestBody ProcesoVentaIngreso procesoVentaIngreso){
+        return new ResponseEntity<Object>(procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_ACTUALIZAR(procesoVentaIngreso), HttpStatus.OK);
     }
 
 }
