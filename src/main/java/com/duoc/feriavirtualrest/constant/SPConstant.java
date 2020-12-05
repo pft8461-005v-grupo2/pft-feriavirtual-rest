@@ -13,6 +13,7 @@ public final class SPConstant {
     public static final String SP_TRANSPORTISTA_CONSULTAR = "SP_TRANSPORTISTA_CONSULTAR";
     public static final String SP_CONTRATO_CONSULTAR = "SP_CONTRATO_CONSULTAR"; // TODO: PENDIENTE
     public static final String SP_SOLICITUD_COMPRA_CONSULTAR = "SP_SOLICITUD_COMPRA_CONSULTAR";
+    public static final String SP_PRODUCTO_CONSULTAR = "SP_PRODUCTO_CONSULTAR";
 
 
     // [ SP para crear ]
@@ -23,6 +24,7 @@ public final class SPConstant {
     public static final String SP_TRANSPORTISTA_CREAR = "SP_TRANSPORTISTA_CREAR";
     public static final String SP_SOLICITUD_COMPRA_CREAR = "SP_SOLICITUD_COMPRA_CREAR";
     public static final String SP_PROCESO_VENTA_CREAR = "SP_PROCESO_VENTA_CREAR";
+    public static final String SP_PRODUCTO_CREAR = "SP_PRODUCTO_CREAR";
 
     // [SP para actualizar ]
     public static final String SP_CLIENTE_ACTUALIZAR = "SP_CLIENTE_ACTUALIZAR";
@@ -30,5 +32,6 @@ public final class SPConstant {
     public static final String SP_TRANSPORTISTA_ACTUALIZAR = "SP_TRANSPORTISTA_ACTUALIZAR";
     public static final String SP_SOLICITUD_COMPRA_ACTUALIZAR = "SP_SOLICITUD_COMPRA_ACTUALIZAR";
     public static final String SP_PROCESO_VENTA_ACTUALIZAR = "SP_PROCESO_VENTA_ACTUALIZAR";
+    public static final String SP_PRODUCTO_ACTUALIZAR = "SP_PRODUCTO_ACTUALIZAR";
 
 }
