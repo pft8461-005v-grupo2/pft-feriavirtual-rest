@@ -28,10 +28,12 @@ public class GestionesController {
     public ResponseEntity<Object> iniciar_proceso_venta_internacional(@RequestBody ProcesoVenta procesoVenta) throws IOException, ClassNotFoundException {
         /*
             Retornos
+            -3 = producto no encontrado
+            -2 = Solicitud no encontrada
             -1 = Error
-            0 = No existe el producto en el sistema
             1 = Se creo proceso y no hay stock
-            2 = Se creo proceso y si hay stock
+            2 = Se creo proceso y stock insuficiente
+            3 = Se creo proceso y stock suficiente
          */
         return new ResponseEntity<Object>(gestionesService.iniciarProcesoVenta(procesoVenta), HttpStatus.OK);
     }
