@@ -2,7 +2,9 @@ package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Contrato;
+import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
+import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
 import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
@@ -11,6 +13,8 @@ import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.model.ContratoModel;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
+import com.duoc.feriavirtualrest.service.IngresoService;
+import com.duoc.feriavirtualrest.service.ProcesoVentaIngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
@@ -57,6 +61,12 @@ public class CrearController {
 
     @Autowired
     private ProductoService productoService;
+
+    @Autowired
+    private IngresoService ingresoService;
+
+    @Autowired
+    private ProcesoVentaIngresoService procesoVentaIngresoService;
 
     @RequestMapping(    value = "/usuario/crear",
             method = RequestMethod.POST,
@@ -127,4 +137,19 @@ public class CrearController {
         return new ResponseEntity<Object>(productoService.SP_PRODUCTO_CREAR(producto), HttpStatus.OK);
     }
 
+    @RequestMapping(   value = "/ingreso/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> ingreso_crear(@RequestBody Ingreso ingreso){
+        return new ResponseEntity<Object>(ingresoService.SP_INGRESO_CREAR(ingreso), HttpStatus.OK);
+    }
+
+    @RequestMapping(   value = "/proceso-venta-ingreso/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> proceso_venta_ingreso(@RequestBody ProcesoVentaIngreso procesoVentaIngreso){
+        return new ResponseEntity<Object>(procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_CREAR(procesoVentaIngreso), HttpStatus.OK);
+    }
 }

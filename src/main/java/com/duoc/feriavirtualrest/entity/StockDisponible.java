@@ -30,6 +30,10 @@ public class StockDisponible {
     public StockDisponible() {
     }
 
+    public StockDisponible(Integer preciokgventaunitario){
+        this.preciokgventaunitario = preciokgventaunitario;
+    }
+
     @Id
     @Column(name = "INGRESO_ID")
     public Integer getIngreso_id() {
