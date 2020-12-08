@@ -11,6 +11,10 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,11 +85,17 @@ public class Ingreso {
         return fechacreacion;
     }
 
+    @NotNull
+    @Min(10)
+    @Max(1000000)
     @Column(name = "KILOGRAMOS")
     public Integer getKilogramos() {
         return kilogramos;
     }
 
+    @NotNull
+    @Min(100)
+    @Max(1000000)
     @Column(name = "PRECIOKGCOSTOUNITARIO")
     public Integer getPreciokgcostounitario() {
         return preciokgcostounitario;
