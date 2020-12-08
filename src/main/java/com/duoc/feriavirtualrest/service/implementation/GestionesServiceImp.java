@@ -120,6 +120,7 @@ public class GestionesServiceImp implements GestionesService {
                         if(crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId(), totalKilogramosPendientes)){
                             actualizarEtapaProcesoVenta(procesoVentaEnContexto.getId(), UtilConstant.ETAPA_PROCESO_EN_ACUERDO);
                             actualizarValoresProcesoVenta(procesoVentaEnContexto.getId());
+                            desahabilitarSolicitudCompra(procesoVenta.getSolicitud_compra_id());
                             return 3;
                         } else { return -1; }
                     }
@@ -130,6 +131,7 @@ public class GestionesServiceImp implements GestionesService {
                         if(crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId(), stockVentaMasBarato.getKilogramos())){
                             actualizarEtapaProcesoVenta(procesoVentaEnContexto.getId(), UtilConstant.ETAPA_PROCESO_EN_ACUERDO);
                             actualizarValoresProcesoVenta(procesoVentaEnContexto.getId());
+                            desahabilitarSolicitudCompra(procesoVenta.getSolicitud_compra_id());
                             return 3;
                         } else { return -1; }
                     } else { return -1; }
@@ -153,9 +155,11 @@ public class GestionesServiceImp implements GestionesService {
         }
 
         if(totalKilogramosPendientes > 0){
+            desahabilitarSolicitudCompra(procesoVenta.getSolicitud_compra_id());
             return 2;
         }else{
             actualizarValoresProcesoVenta(procesoVentaEnContexto.getId());
+            desahabilitarSolicitudCompra(procesoVenta.getSolicitud_compra_id());
             return 3;
         }
     }
@@ -201,6 +205,12 @@ public class GestionesServiceImp implements GestionesService {
             if(response.getOUT_ID_SALIDA() > 0){ return true; }
         }
         return false;
+    }
+    public void desahabilitarSolicitudCompra(Integer solicitudCompraId){
+        Solicitud_compra solicitud_compraAActualizar = new Solicitud_compra();
+        solicitud_compraAActualizar.setId(solicitudCompraId);
+        solicitud_compraAActualizar.setHabilitado(0);
+        solicitudCompraService.SP_SOLICITUD_COMPRA_ACTUALIZAR(solicitud_compraAActualizar);
     }
 
     @Override
