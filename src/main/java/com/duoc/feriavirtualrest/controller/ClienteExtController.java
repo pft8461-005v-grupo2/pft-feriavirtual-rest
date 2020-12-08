@@ -136,7 +136,6 @@ public class ClienteExtController {
 
         Solicitud_compra solicitud_compraABuscar = new Solicitud_compra();
         solicitud_compraABuscar.setCliente_id(clienteEncontrado.getId());
-        solicitud_compraABuscar.setHabilitado(1);
         List<Solicitud_compra> listaSolicitudCompraVigente = solicitudCompraService.SP_SOLICITUD_COMPRA_CONSULTAR(solicitud_compraABuscar);
 
 
@@ -165,13 +164,15 @@ public class ClienteExtController {
         List<ProcesoVentaCompleto> listaProcesoVentaCompletoEnAcuerdo = new ArrayList<>();
 
         listaProcesoVentaCompleto.forEach(pvc -> {
-            if(pvc.getProcesoVenta().getEtapa() == UtilConstant.ETAPA_PROCESO_ACUERDO_PENDIENTE_RESPUESTA){
+            if(pvc.getProcesoVenta().getEtapa() == UtilConstant.ETAPA_PROCESO_ACUERDO_PENDIENTE_RESPUESTA &&
+                pvc.getSolicitud_compra().getHabilitado() == UtilConstant.DESHABILITADO){
                 listaProcesoVentaCompletoEnAcuerdo.add(pvc);
             }
         });
 
         model.addAttribute("listaProcesoVentaCompleto", listaProcesoVentaCompleto );
         model.addAttribute("listaProcesoVentaCompletoEnAcuerdo", listaProcesoVentaCompletoEnAcuerdo );
+        model.addAttribute("listaSolicitudNoProcesadas", listaSolicitudNoProcesadas );
         model.addAttribute("listaSolicitudNoProcesadas", listaSolicitudNoProcesadas );
 
 

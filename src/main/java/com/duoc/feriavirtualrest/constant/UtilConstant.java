@@ -22,4 +22,10 @@ public class UtilConstant {
     public static final int ETAPA_PROCESO_ACUERDO_RECHAZADO = -1;
 
 
+
+    // Otros
+    public static final int HABILITADO = 1;
+    public static final int DESHABILITADO = 0;
+
+
 }
