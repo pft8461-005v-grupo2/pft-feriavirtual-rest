@@ -7,6 +7,7 @@ public class IngresoCompleto {
 
     private Ingreso ingreso;
     private Productor productor;
+    private Integer kilogramosocupados;
 
     public Ingreso getIngreso() {
         return ingreso;
@@ -22,5 +23,13 @@ public class IngresoCompleto {
 
     public void setProductor(Productor productor) {
         this.productor = productor;
+    }
+
+    public Integer getKilogramosocupados() {
+        return kilogramosocupados;
+    }
+
+    public void setKilogramosocupados(Integer kilogramosocupados) {
+        this.kilogramosocupados = kilogramosocupados;
     }
 }

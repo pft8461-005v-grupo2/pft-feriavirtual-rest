@@ -23,6 +23,7 @@ import java.util.List;
                 parameters = {
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_INGRESO_ID", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_PROCESO_VENTA_ID", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_KILOGRAMOSOCUPADOS", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ID_SALIDA", type=Integer.class)
@@ -33,6 +34,7 @@ import java.util.List;
                 parameters = {
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_INGRESO_ID", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_PROCESO_VENTA_ID", type=Integer.class),
+                        @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_KILOGRAMOSOCUPADOS", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_HABILITADO", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_GLOSA", type=String.class),
                         @StoredProcedureParameter(mode=ParameterMode.OUT, name="OUT_ESTADO", type=Integer.class),
@@ -46,6 +48,7 @@ public class ProcesoVentaIngreso {
 
     private Integer ingreso_id;
     private Integer proceso_venta_id;
+    private Integer kilogramosocupados;
     private Integer habilitado;
 
     public ProcesoVentaIngreso() {
@@ -68,6 +71,11 @@ public class ProcesoVentaIngreso {
         return habilitado;
     }
 
+    @Column(name = "KILOGRAMOSOCUPADOS")
+    public Integer getKilogramosocupados() {
+        return kilogramosocupados;
+    }
+
     public void setIngreso_id(Integer ingreso_id) {
         this.ingreso_id = ingreso_id;
     }
@@ -78,6 +86,10 @@ public class ProcesoVentaIngreso {
 
     public void setHabilitado(Integer habilitado) {
         this.habilitado = habilitado;
+    }
+
+    public void setKilogramosocupados(Integer kilogramosocupados) {
+        this.kilogramosocupados = kilogramosocupados;
     }
 
     public List<SPDataIN> generarDataIN(){

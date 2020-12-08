@@ -117,8 +117,9 @@ public class GestionesServiceImp implements GestionesService {
                         ingresoEncontrado.setHabilitado(1);
                         ingresoEncontrado.setKilogramos(excedentes);
                         habilitarIngresoDeExcedentes(ingresoEncontrado);
-                        if(crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId())){
+                        if(crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId(), totalKilogramosPendientes)){
                             actualizarEtapaProcesoVenta(procesoVentaEnContexto.getId(), UtilConstant.ETAPA_PROCESO_EN_ACUERDO);
+                            actualizarValoresProcesoVenta(procesoVentaEnContexto.getId());
                             return 3;
                         } else { return -1; }
                     }
@@ -126,8 +127,9 @@ public class GestionesServiceImp implements GestionesService {
                     // Se deshabilita
                     boolean ingresoDeshabilitado = deshabilitarIngreso(stockVentaMasBarato.getIngreso_id());
                     if(ingresoDeshabilitado){
-                        if(crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId())){
+                        if(crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId(), stockVentaMasBarato.getKilogramos())){
                             actualizarEtapaProcesoVenta(procesoVentaEnContexto.getId(), UtilConstant.ETAPA_PROCESO_EN_ACUERDO);
+                            actualizarValoresProcesoVenta(procesoVentaEnContexto.getId());
                             return 3;
                         } else { return -1; }
                     } else { return -1; }
@@ -135,10 +137,10 @@ public class GestionesServiceImp implements GestionesService {
             }else{
                 // Si el más barato no tiene suficiente stock
                 // Se resta de ese ingreso
-                // 2000 >= 5000
+                // 1000 >= 2000
                 // Se deshabilita lo que exista
                 boolean ingresoDeshabilitado = deshabilitarIngreso(stockVentaMasBarato.getIngreso_id());
-                if(!crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId())){
+                if(!crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId(), stockVentaMasBarato.getKilogramos())){
                     return -1;
                 }
                 totalKilogramosPendientes = totalKilogramosPendientes - stockVentaMasBarato.getKilogramos();
@@ -153,6 +155,7 @@ public class GestionesServiceImp implements GestionesService {
         if(totalKilogramosPendientes > 0){
             return 2;
         }else{
+            actualizarValoresProcesoVenta(procesoVentaEnContexto.getId());
             return 3;
         }
     }
@@ -176,10 +179,11 @@ public class GestionesServiceImp implements GestionesService {
         return false;
     }
 
-    public boolean crearRegistroProcesoVentaIngreso(Integer ingreso_id, Integer procesoVenta_id) throws IOException {
+    public boolean crearRegistroProcesoVentaIngreso(Integer ingreso_id, Integer procesoVenta_id, Integer kilogramosocupados) throws IOException {
         ProcesoVentaIngreso pvi = new ProcesoVentaIngreso();
         pvi.setIngreso_id(ingreso_id);
         pvi.setProceso_venta_id(procesoVenta_id);
+        pvi.setKilogramosocupados(kilogramosocupados);
         pvi.setHabilitado(1);
         ResponseSP response = Utiles.objectToResponseSP(procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_CREAR(pvi));
         if(response != null){
@@ -197,5 +201,39 @@ public class GestionesServiceImp implements GestionesService {
             if(response.getOUT_ID_SALIDA() > 0){ return true; }
         }
         return false;
+    }
+
+    @Override
+    public void actualizarValoresProcesoVenta(int procesoVentaId) throws ClassNotFoundException {
+
+        ProcesoVenta procesoVentaABuscar = new ProcesoVenta();
+        procesoVentaABuscar.setId(procesoVentaId);
+        ProcesoVenta procesoVentaEncontrado = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar).stream().findFirst().orElse(null);
+
+        if(procesoVentaEncontrado != null){
+            ProcesoVentaIngreso procesoVentaIngresoABuscar = new ProcesoVentaIngreso();
+            procesoVentaIngresoABuscar.setProceso_venta_id(procesoVentaId);
+            List<ProcesoVentaIngreso> listaProcesoVentaIngresoEncontrados = procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_CONSULTAR(procesoVentaIngresoABuscar);
+
+            Integer precioVentaTotal = 0;
+            Integer precioCostoTotal = 0;
+
+            for (ProcesoVentaIngreso pvi : listaProcesoVentaIngresoEncontrados){
+                Ingreso ingresoABuscar = new Ingreso();
+                ingresoABuscar.setId(pvi.getIngreso_id());
+                Ingreso ingresoEncontrado = ingresoService.SP_INGRESO_CONSULTAR(ingresoABuscar).stream().findFirst().orElse(null);
+
+                precioCostoTotal += pvi.getKilogramosocupados()  * ingresoEncontrado.getPreciokgcostounitario();
+                precioVentaTotal += pvi.getKilogramosocupados()  * ingresoEncontrado.getPreciokgventaunitario();
+            }
+
+            ProcesoVenta procesoVentaAActualizar = new ProcesoVenta();
+            procesoVentaAActualizar.setId(procesoVentaId);
+            procesoVentaAActualizar.setPreciocostototal(precioCostoTotal);
+            procesoVentaAActualizar.setPrecioventatotal(precioVentaTotal);
+
+            procesoVentaService.SP_PROCESO_VENTA_ACTUALIZAR(procesoVentaAActualizar);
+
+        }
     }
 }

@@ -198,6 +198,7 @@ public class ClienteExtController {
             Productor productorABuscar = new Productor();
             productorABuscar.setId(ingresoCompleto.getIngreso().getProductor_id());
             ingresoCompleto.setProductor(productorService.SP_PRODUCTOR_CONSULTAR(productorABuscar).stream().findFirst().orElse(null));
+            ingresoCompleto.setKilogramosocupados(pvi.getKilogramosocupados());
             listaIngreso.add(ingresoCompleto);
         }
 

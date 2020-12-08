@@ -19,15 +19,15 @@ $('#ver_detalle').on('show.bs.modal', function(event) {
             var total_precio_total = 0;
             var trHTML = '';
             $.each(data, function(i, item) {
-                total_precio_total = total_precio_total + (item.ingreso.kilogramos * item.ingreso.preciokgventaunitario);
+                total_precio_total = total_precio_total + (item.kilogramosocupados * item.ingreso.preciokgventaunitario);
                 trHTML += '<tr><td>'
                     + item.productor.razonsocial
                     + '</td><td>'
-                    + item.ingreso.kilogramos
+                    + item.kilogramosocupados
                     + '</td><td>'
                     + '$ ' + item.ingreso.preciokgventaunitario
                     + '</td><td>'
-                    + '$ ' + (item.ingreso.kilogramos * item.ingreso.preciokgventaunitario)
+                    + '$ ' + (item.kilogramosocupados * item.ingreso.preciokgventaunitario)
                     + '</td></tr>';
             });
             $('#tabla_dinamica_ver_detalle').append(trHTML);
