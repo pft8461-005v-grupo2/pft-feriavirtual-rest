@@ -1,5 +1,6 @@
 package com.duoc.feriavirtualrest.service.implementation;
 
+import com.duoc.feriavirtualrest.constant.UtilConstant;
 import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
 import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
@@ -117,7 +118,7 @@ public class GestionesServiceImp implements GestionesService {
                         ingresoEncontrado.setKilogramos(excedentes);
                         habilitarIngresoDeExcedentes(ingresoEncontrado);
                         if(crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId())){
-                            actualizarEtapaProcesoVenta(procesoVentaEnContexto.getId(), 2);
+                            actualizarEtapaProcesoVenta(procesoVentaEnContexto.getId(), UtilConstant.ETAPA_PROCESO_EN_ACUERDO);
                             return 3;
                         } else { return -1; }
                     }
@@ -126,7 +127,7 @@ public class GestionesServiceImp implements GestionesService {
                     boolean ingresoDeshabilitado = deshabilitarIngreso(stockVentaMasBarato.getIngreso_id());
                     if(ingresoDeshabilitado){
                         if(crearRegistroProcesoVentaIngreso(stockVentaMasBarato.getIngreso_id(), procesoVentaEnContexto.getId())){
-                            actualizarEtapaProcesoVenta(procesoVentaEnContexto.getId(), 2);
+                            actualizarEtapaProcesoVenta(procesoVentaEnContexto.getId(), UtilConstant.ETAPA_PROCESO_EN_ACUERDO);
                             return 3;
                         } else { return -1; }
                     } else { return -1; }

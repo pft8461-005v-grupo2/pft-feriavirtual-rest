@@ -20,6 +20,7 @@ public class ViewConstant {
     // [ Cliente Externo ]
     public static final String V_CE_HOME = RUTABASE_CLIENTEEXT + "home";
     public static final String V_CE_INGRESO = RUTABASE_CLIENTEEXT + "ingresarpedido";
+    public static final String V_CE_MISPEDIDOS = RUTABASE_CLIENTEEXT + "mispedidos";
 
     // [ Cliente Interno ]
     public static final String V_CI_HOME = RUTABASE_CLIENTEINT + "home";
