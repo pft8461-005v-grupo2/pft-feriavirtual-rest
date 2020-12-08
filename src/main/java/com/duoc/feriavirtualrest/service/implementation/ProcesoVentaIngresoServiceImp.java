@@ -28,7 +28,8 @@ public class ProcesoVentaIngresoServiceImp implements ProcesoVentaIngresoService
         try{
             return procesoVentaIngresoRepository.SP_PROCESO_VENTA_INGRESO_CREAR(
                     procesoVentaIngreso.getIngreso_id(),
-                    procesoVentaIngreso.getProceso_venta_id()
+                    procesoVentaIngreso.getProceso_venta_id(),
+                    procesoVentaIngreso.getKilogramosocupados()
             );
         }catch (Exception e) {
             log.error("Error al crear un proceso venta ingreso", e);
@@ -42,6 +43,7 @@ public class ProcesoVentaIngresoServiceImp implements ProcesoVentaIngresoService
             return procesoVentaIngresoRepository.SP_PROCESO_VENTA_INGRESO_ACTUALIZAR(
                     procesoVentaIngreso.getIngreso_id(),
                     procesoVentaIngreso.getProceso_venta_id(),
+                    procesoVentaIngreso.getKilogramosocupados(),
                     procesoVentaIngreso.getHabilitado()
             );
         }catch (Exception e) {

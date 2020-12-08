@@ -7,4 +7,6 @@ import java.io.IOException;
 public interface GestionesService {
 
     int iniciarProcesoVenta(ProcesoVenta procesoVenta) throws IOException, ClassNotFoundException;
+
+    void actualizarValoresProcesoVenta(int procesoVentaId) throws ClassNotFoundException;
 }
