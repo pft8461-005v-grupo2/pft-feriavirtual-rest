@@ -2,6 +2,7 @@ package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Contrato;
+import com.duoc.feriavirtualrest.entity.Detalle_subasta;
 import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
 import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
@@ -13,6 +14,7 @@ import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
+import com.duoc.feriavirtualrest.service.DetalleSubastaService;
 import com.duoc.feriavirtualrest.service.IngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaIngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaService;
@@ -69,6 +71,9 @@ public class ConsultasController {
 
     @Autowired
     private SubastaService subastaService;
+
+    @Autowired
+    private DetalleSubastaService detalleSubastaService;
 
     @RequestMapping(    value = "/usuario/consultar",
             method = RequestMethod.POST,
@@ -168,6 +173,15 @@ public class ConsultasController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> subasta_consultar(@RequestBody Subasta subasta) throws ClassNotFoundException {
         List<Subasta> resultado = subastaService.SP_SUBASTA_CONSULTAR(subasta);
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/detalle-subasta/consultar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> detalle_subasta_consultar(@RequestBody Detalle_subasta detalle_subasta) throws ClassNotFoundException {
+        List<Detalle_subasta> resultado = detalleSubastaService.SP_DETALLE_SUBASTA_CONSULTAR(detalle_subasta);
         return new ResponseEntity<Object>(resultado, HttpStatus.OK);
     }
 }
