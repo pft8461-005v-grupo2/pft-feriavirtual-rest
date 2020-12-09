@@ -7,6 +7,7 @@ import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
 import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
+import com.duoc.feriavirtualrest.entity.Subasta;
 import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
@@ -16,6 +17,7 @@ import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.SolicitudCompraService;
+import com.duoc.feriavirtualrest.service.SubastaService;
 import com.duoc.feriavirtualrest.service.TransportistaService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,9 @@ public class ActualizarController {
 
     @Autowired
     private ProcesoVentaIngresoService procesoVentaIngresoService;
+
+    @Autowired
+    private SubastaService subastaService;
 
     @RequestMapping(    value = "/cliente/actualizar",
             method = RequestMethod.POST,
@@ -123,6 +128,14 @@ public class ActualizarController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> proceso_venta_ingreso_actualizar(@RequestBody ProcesoVentaIngreso procesoVentaIngreso){
         return new ResponseEntity<Object>(procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_ACTUALIZAR(procesoVentaIngreso), HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/subasta/actualizar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> subasta_actualizar(@RequestBody Subasta subasta){
+        return new ResponseEntity<Object>(subastaService.SP_SUBASTA_ACTUALIZAR(subasta), HttpStatus.OK);
     }
 
 }

@@ -1,17 +1,24 @@
 package com.duoc.feriavirtualrest.controller;
 
+import com.duoc.feriavirtualrest.constant.UtilConstant;
 import com.duoc.feriavirtualrest.constant.ViewConstant;
+import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
+import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
 import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.Usuario;
+import com.duoc.feriavirtualrest.model.IngresoCompleto;
+import com.duoc.feriavirtualrest.model.ProcesoVentaCompleto;
 import com.duoc.feriavirtualrest.model.ResponseSP;
+import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.IngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
+import com.duoc.feriavirtualrest.service.SolicitudCompraService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import com.duoc.feriavirtualrest.util.Utiles;
 import com.google.gson.Gson;
@@ -56,6 +63,12 @@ public class ProductorController {
 
     @Autowired
     private IngresoService ingresoService;
+
+    @Autowired
+    private SolicitudCompraService solicitudCompraService;
+
+    @Autowired
+    private ClienteService clienteService;
 
         @GetMapping("/home")
     public String home () { return ViewConstant.V_P_HOME; }
@@ -132,6 +145,73 @@ public class ProductorController {
             ra.addAttribute("resultado", -1);
         }
         return "redirect:/productor/ingresarproducto";
+    }
+
+
+    @RequestMapping("/procesos")
+    public String procesos (Model model) throws ClassNotFoundException {
+
+
+        Usuario usuario = usuarioService.obtenerUsuario();
+
+        Productor productorABuscar = new Productor();
+        productorABuscar.setUsuario_id(usuario.getId());
+        Productor productorEncontrado = productorService.SP_PRODUCTOR_CONSULTAR(productorABuscar).stream().findFirst().orElse(null);
+
+
+        Ingreso ingresoABuscar = new Ingreso();
+        ingresoABuscar.setProductor_id(productorEncontrado.getId());
+        List<Ingreso> listaIngresosEncontrados = ingresoService.SP_INGRESO_CONSULTAR(ingresoABuscar);
+
+        List<IngresoCompleto> listaIngresoAMostrar = new ArrayList<>();
+
+        for(Ingreso i : listaIngresosEncontrados){
+            IngresoCompleto ingresoCompleto = new IngresoCompleto();
+
+            ingresoCompleto.setIngreso(i);
+
+            // Producto
+            Producto productoABuscar = new Producto();
+            productoABuscar.setId(i.getProducto_id());
+            Producto productoEncontrado = productoService.SP_PRODUCTO_CONSULTAR(productoABuscar).stream().findFirst().orElse(null);
+
+            ingresoCompleto.setProducto(productoEncontrado);
+
+            listaIngresoAMostrar.add(ingresoCompleto);
+        }
+
+        ProcesoVenta procesoVentaABuscar = new ProcesoVenta();
+        procesoVentaABuscar.setEtapa(1);
+        List<ProcesoVenta> listaProcesoVentaEncontrados = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar);
+        List<ProcesoVentaCompleto> listaProcesoVentaAMostrar = new ArrayList<>();
+
+        for(ProcesoVenta pv : listaProcesoVentaEncontrados){
+            ProcesoVentaCompleto pvc = new ProcesoVentaCompleto();
+
+            pvc.setProcesoVenta(pv);
+
+            Solicitud_compra solicitud_compraABuscar = new Solicitud_compra();
+            solicitud_compraABuscar.setId(pv.getSolicitud_compra_id());
+            Solicitud_compra solicitud_compraEncontrado = solicitudCompraService.SP_SOLICITUD_COMPRA_CONSULTAR(solicitud_compraABuscar).stream().findFirst().orElse(null);
+
+            pvc.setSolicitud_compra(solicitud_compraEncontrado);
+
+            Cliente clienteABuscar = new Cliente();
+            clienteABuscar.setId(solicitud_compraEncontrado.getCliente_id());
+            Cliente clienteEncontrado = clienteService.SP_CLIENTE_CONSULTAR(clienteABuscar).stream().findFirst().orElse(null);
+
+            pvc.setCliente(clienteEncontrado);
+
+            listaProcesoVentaAMostrar.add(pvc);
+
+        }
+
+
+        model.addAttribute("listaIngresoAMostrar", listaIngresoAMostrar );
+        model.addAttribute("listaProcesoVentaAMostrar", listaProcesoVentaAMostrar );
+
+
+        return ViewConstant.V_P_PROCESOS;
     }
 
 }

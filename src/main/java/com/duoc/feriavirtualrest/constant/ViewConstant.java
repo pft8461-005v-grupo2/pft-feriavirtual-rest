@@ -28,9 +28,11 @@ public class ViewConstant {
     // [ Productor ]
     public static final String V_P_HOME = RUTABASE_PRODUCTOR + "home";
     public static final String V_P_INGRESO = RUTABASE_PRODUCTOR + "ingresarproducto";
+    public static final String V_P_PROCESOS = RUTABASE_PRODUCTOR + "procesos";
 
     // [ Transportista ]
     public static final String V_T_HOME = RUTABASE_TRANSPORTISTA + "home";
-
+    public static final String V_T_SUBASTAS = RUTABASE_TRANSPORTISTA + "subastas";
+    public static final String V_T_PROCESOS = RUTABASE_TRANSPORTISTA + "procesos";
 
 }

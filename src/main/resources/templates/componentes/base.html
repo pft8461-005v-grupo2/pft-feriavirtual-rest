@@ -32,16 +32,14 @@
                         <li class="nav-item active">
                             <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-link" href="#">Cliente Externo</a>
                             <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" th:href="@{/productor/ingresarproducto}">Ofrecer frutas</a>
-                            <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')" class="nav-link" href="#">Subastas disponibles</a>
+                            <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')" class="nav-link" th:href="@{/transportista/subastas}">Subastas disponibles</a>
                             <a sec:authorize="hasAuthority('ROLE_CLIENTE_EXTERNO')" class="nav-link" th:href="@{/clienteext/ingresar-pedido}">Ingresar pedido</a>
                             <a sec:authorize="hasAuthority('ROLE_CLIENTE_INTERNO')" class="nav-link" href="#">Ver productos nacionales</a>
                         </li>
                         <li class="nav-item">
                             <a sec:authorize="hasAuthority('ROLE_CLIENTE_EXTERNO')" class="nav-link" th:href="@{/clienteext/mis-pedidos}">Mis Pedidos</a>
-                            <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" href="#">Mis Pedidos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" href="#">Pedidos Intenacionales</a>
+                            <a sec:authorize="hasAuthority('ROLE_PRODUCTOR')" class="nav-link" th:href="@{/productor/procesos}">Procesos de venta</a>
+                            <a sec:authorize="hasAuthority('ROLE_TRANSPORTISTA')" class="nav-link" th:href="@{/transportista/procesos}">Procesos</a>
                         </li>
                         <li class="nav-item">
                             <form class="form-inline" th:action="@{/logout}" method="POST">
