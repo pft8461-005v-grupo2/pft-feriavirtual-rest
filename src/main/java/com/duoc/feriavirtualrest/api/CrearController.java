@@ -2,6 +2,7 @@ package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.Cliente;
 import com.duoc.feriavirtualrest.entity.Contrato;
+import com.duoc.feriavirtualrest.entity.Detalle_subasta;
 import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
 import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
@@ -14,6 +15,7 @@ import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.model.ContratoModel;
 import com.duoc.feriavirtualrest.service.ClienteService;
 import com.duoc.feriavirtualrest.service.ContratoService;
+import com.duoc.feriavirtualrest.service.DetalleSubastaService;
 import com.duoc.feriavirtualrest.service.IngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaIngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaService;
@@ -72,6 +74,9 @@ public class CrearController {
 
     @Autowired
     private SubastaService subastaService;
+
+    @Autowired
+    private DetalleSubastaService detalleSubastaService;
 
     @RequestMapping(    value = "/usuario/crear",
             method = RequestMethod.POST,
@@ -164,5 +169,13 @@ public class CrearController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> subasta_crear(@RequestBody Subasta subasta){
         return new ResponseEntity<Object>(subastaService.SP_SUBASTA_CREAR(subasta), HttpStatus.OK);
+    }
+
+    @RequestMapping(   value = "/detalle-subasta/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> detalle_subasta_crear(@RequestBody Detalle_subasta detalle_subasta){
+        return new ResponseEntity<Object>(detalleSubastaService.SP_DETALLE_SUBASTA_CREAR(detalle_subasta), HttpStatus.OK);
     }
 }

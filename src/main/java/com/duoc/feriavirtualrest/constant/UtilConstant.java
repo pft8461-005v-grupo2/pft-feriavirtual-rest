@@ -17,7 +17,10 @@ public class UtilConstant {
     public static final int ETAPA_PROCESO_ACUERDO_PENDIENTE_RESPUESTA = 3; // El administrador ya reviso la propuesta y la esta enviando al cliente internacional
     public static final int ETAPA_PROCESO_ACUERDO_ACEPTADO = 4; // El cliente internacional acepta propuesta de venta y la envia al administrador para que este genere la subasta.
     public static final int ETAPA_PROCESO_SUBASTA_INICIADA = 5; // El administrador inicia subasta del proceso de venta (este estado significa además que esta en espera de encontrar un transportista ideal)
-    public static final int ETAPA_PROCESO_EN_TRANSITO = 6; // .....
+    public static final int ETAPA_PROCESO_EN_TRANSITO = 6; // Se encuentra transportista ideal con buen precio, ahora se esta transportando desde productor hasta bodega central
+    public static final int ETAPA_PROCESO_ENTREGADO_EN_BODEGA_CENTRAL = 7; // Se entrega mercaderia en bodega central por transportista
+    public static final int ETAPA_PROCESO_DESPACHO = 8; // Se despacha final
+    public static final int ETAPA_PROCESO_RESPUESTA_CLIENTE = 9; // El cliente da feedback del producto recibido
 
     public static final int ETAPA_PROCESO_ACUERDO_RECHAZADO = -1;
 
