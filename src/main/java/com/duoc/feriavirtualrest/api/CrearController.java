@@ -8,6 +8,7 @@ import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
 import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
+import com.duoc.feriavirtualrest.entity.Subasta;
 import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.model.ContratoModel;
@@ -19,6 +20,7 @@ import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.SolicitudCompraService;
+import com.duoc.feriavirtualrest.service.SubastaService;
 import com.duoc.feriavirtualrest.service.TransportistaService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,9 @@ public class CrearController {
 
     @Autowired
     private ProcesoVentaIngresoService procesoVentaIngresoService;
+
+    @Autowired
+    private SubastaService subastaService;
 
     @RequestMapping(    value = "/usuario/crear",
             method = RequestMethod.POST,
@@ -149,7 +154,15 @@ public class CrearController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> proceso_venta_ingreso(@RequestBody ProcesoVentaIngreso procesoVentaIngreso){
+    public ResponseEntity<Object> proceso_venta_ingreso_crear(@RequestBody ProcesoVentaIngreso procesoVentaIngreso){
         return new ResponseEntity<Object>(procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_CREAR(procesoVentaIngreso), HttpStatus.OK);
+    }
+
+    @RequestMapping(   value = "/subasta/crear",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> subasta_crear(@RequestBody Subasta subasta){
+        return new ResponseEntity<Object>(subastaService.SP_SUBASTA_CREAR(subasta), HttpStatus.OK);
     }
 }

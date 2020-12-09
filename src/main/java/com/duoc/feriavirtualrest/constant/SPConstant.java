@@ -16,6 +16,7 @@ public final class SPConstant {
     public static final String SP_PRODUCTO_CONSULTAR = "SP_PRODUCTO_CONSULTAR";
     public static final String SP_INGRESO_CONSULTAR = "SP_INGRESO_CONSULTAR";
     public static final String SP_PROCESO_VENTA_INGRESO_CONSULTAR = "SP_PR_VENTA_INGRESO_CONSULTAR";
+    public static final String SP_SUBASTA_CONSULTAR = "SP_SUBASTA_CONSULTAR";
 
     // [ SP para crear ]
 
@@ -28,6 +29,7 @@ public final class SPConstant {
     public static final String SP_PRODUCTO_CREAR = "SP_PRODUCTO_CREAR";
     public static final String SP_INGRESO_CREAR = "SP_INGRESO_CREAR";
     public static final String SP_PROCESO_VENTA_INGRESO_CREAR = "SP_PROCESO_VENTA_INGRESO_CREAR";
+    public static final String SP_SUBASTA_CREAR = "SP_SUBASTA_CREAR";
 
     // [SP para actualizar ]
     public static final String SP_CLIENTE_ACTUALIZAR = "SP_CLIENTE_ACTUALIZAR";
@@ -38,5 +40,6 @@ public final class SPConstant {
     public static final String SP_PRODUCTO_ACTUALIZAR = "SP_PRODUCTO_ACTUALIZAR";
     public static final String SP_INGRESO_ACTUALIZAR = "SP_INGRESO_ACTUALIZAR";
     public static final String SP_PROCESO_VENTA_INGRESO_ACTUALIZAR = "SP_PR_VENTA_INGRESO_ACTUALIZAR";
+    public static final String SP_SUBASTA_ACTUALIZAR = "SP_SUBASTA_ACTUALIZAR";
 
 }

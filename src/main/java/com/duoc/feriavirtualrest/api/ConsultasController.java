@@ -8,6 +8,7 @@ import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
 import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Productor;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
+import com.duoc.feriavirtualrest.entity.Subasta;
 import com.duoc.feriavirtualrest.entity.Transportista;
 import com.duoc.feriavirtualrest.entity.Usuario;
 import com.duoc.feriavirtualrest.service.ClienteService;
@@ -18,6 +19,7 @@ import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.ProductorService;
 import com.duoc.feriavirtualrest.service.SolicitudCompraService;
+import com.duoc.feriavirtualrest.service.SubastaService;
 import com.duoc.feriavirtualrest.service.TransportistaService;
 import com.duoc.feriavirtualrest.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,9 @@ public class ConsultasController {
 
     @Autowired
     private ProcesoVentaIngresoService procesoVentaIngresoService;
+
+    @Autowired
+    private SubastaService subastaService;
 
     @RequestMapping(    value = "/usuario/consultar",
             method = RequestMethod.POST,
@@ -154,6 +159,15 @@ public class ConsultasController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> proceso_venta_ingreso_consultar(@RequestBody ProcesoVentaIngreso procesoVentaIngreso) throws ClassNotFoundException {
         List<ProcesoVentaIngreso> resultado = procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_CONSULTAR(procesoVentaIngreso);
+        return new ResponseEntity<Object>(resultado, HttpStatus.OK);
+    }
+
+    @RequestMapping(    value = "/subasta/consultar",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> subasta_consultar(@RequestBody Subasta subasta) throws ClassNotFoundException {
+        List<Subasta> resultado = subastaService.SP_SUBASTA_CONSULTAR(subasta);
         return new ResponseEntity<Object>(resultado, HttpStatus.OK);
     }
 }
