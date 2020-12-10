@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:fragment="detalle-general">
+    <div class="modal fade" id="detalle_general" tabindex="-1"
+         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalle | Proceso de Venta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="container modal-body">
+                    <div id="etapa_dinamica" />
+                </div>
+                <div class="modal-footer">
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <button type="button" data-dismiss="modal"
+                                    class="btn btn-secondary">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/custom/detalle_general.js" type="text/javascript"></script>
+</th:block>

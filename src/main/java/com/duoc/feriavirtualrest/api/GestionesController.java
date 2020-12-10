@@ -2,6 +2,7 @@ package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
 import com.duoc.feriavirtualrest.service.GestionesService;
+import com.duoc.feriavirtualrest.service.StockDisponibleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +21,20 @@ public class GestionesController {
     @Autowired
     private GestionesService gestionesService;
 
+    @Autowired
+    private StockDisponibleService stockDisponibleService;
+
+
+    @RequestMapping(   value = "/consulta-stock-disponible",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public ResponseEntity<Object> consulta_stock_disponible() {
+
+        return new ResponseEntity<Object>(stockDisponibleService.consultarStockDisponible(), HttpStatus.OK);
+    }
+
     @RequestMapping(   value = "/proceso-internacional/iniciar-proceso",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -34,6 +49,20 @@ public class GestionesController {
             1 = Se creo proceso y no hay stock
             2 = Se creo proceso y stock insuficiente
             3 = Se creo proceso y stock suficiente
+         */
+        return new ResponseEntity<Object>(gestionesService.iniciarProcesoVenta(procesoVenta), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(   value = "/proceso-internacional/iniciar-subasta",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public ResponseEntity<Object> iniciar_subasta(@RequestBody ProcesoVenta procesoVenta) throws IOException, ClassNotFoundException {
+        /*
+            Retornos
+            -1 = Error
          */
         return new ResponseEntity<Object>(gestionesService.iniciarProcesoVenta(procesoVenta), HttpStatus.OK);
     }
