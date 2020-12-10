@@ -15,32 +15,145 @@
 
 
 <div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Código</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Kilogramos</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Fecha Término</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        </tbody>
-    </table>
+    <div th:if="${usuario_no_permitido == false}">
+        <table class="table" >
+            <thead>
+            <tr>
+                <th scope="col">Pedido</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Kilogramos</th>
+                <th scope="col">Fecha Creación</th>
+                <th scope="col">Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pv : ${listaProcesoVentaCompleto}">
+                <th th:text="${'#' + pv.Solicitud_compra.id}"></th>
+                <td th:text="${pv.Solicitud_compra.producto}"></td>
+                <td th:text="${new java.text.DecimalFormat('###,###,###').format(pv.Solicitud_compra.kilogramos)}"></td>
+                <td th:text="${#dates.format(pv.ProcesoVenta.fechacreacion, 'dd-MM-yyyy')}"></td>
+                <td>
+                    <a href="#"
+                       data-toggle="modal"
+                       data-target="#ver_detalle"
+                       class="btn btn-primary"
+                       th:attr="data-proceso_venta_id='__${pv.ProcesoVenta.id}__',
+                                        data-producto='__${pv.Solicitud_compra.producto}__',
+                                        data-kilogramos='__${new java.text.DecimalFormat('###,###,###').format(pv.Solicitud_compra.kilogramos)}__',
+                                        data-fechacreacion='__${#dates.format(pv.ProcesoVenta.fechacreacion, 'dd-MM-yyyy')}__'">
+                        Más detalles
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${listaProcesoVentaCompleto.size()} == 0" class="alert alert-info my-3" role="alert">
+            No hay subasta disponibles para mostrar.
+        </div>
+    </div>
+    <div th:if="${usuario_no_permitido == true}" class="alert alert-info my-3" role="alert">
+        Tu usuario no permite visualizar las subastas disponibles
+    </div>
 </div>
 
 
 <div th:replace="componentes/base :: load-scripts"></div>
+
+
+<!--begin::ver_detalle-->
+<div class="modal fade" id="ver_detalle" tabindex="-1"
+     role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalle de la subasta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="container modal-body">
+                <!--begin::Form-->
+                <div class="kt-portlet__body">
+                    <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <input type="hidden" id="procesoventa_id" />
+
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Fruta</label>
+                                <input id="producto_descripcion"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_descripcion"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Kilogramos</label>
+                                <input id="producto_kilogramos"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_kilogramos"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Fecha solicitud</label>
+                                <input id="fechasolicitud"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="fechasolicitud"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Kilogramos</th>
+                                <th scope="col">Dirección</th>
+                                <th scope="col">Comuna</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tabla_dinamica_ver_detalle">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-xl-12">
+                            <div class="form-group">
+                                <label>Precio a ofertar</label>
+                                <input id="precio_a_ofertar"
+                                       type="number"
+                                       class="form-control"
+                                       aria-describedby="precio_a_ofertar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--end::Form-->
+            </div>
+            <div class="modal-footer">
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions">
+                        <button type="submit"
+                                class="btn btn-success btn_ofertar">Ofertar</button>
+                        <button type="button" data-dismiss="modal"
+                                class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::ver_detalle-->
+
+<script src="./assets/custom/transportista/subastas.js" type="text/javascript"></script>
+
 
 </body>
 </html>

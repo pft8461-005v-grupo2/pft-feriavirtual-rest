@@ -47,7 +47,13 @@
                         <td th:text="${new java.text.DecimalFormat('###,###,###').format(pv.Solicitud_compra.kilogramos)}"></td>
                         <td th:text="${#dates.format(pv.ProcesoVenta.fechacreacion, 'dd-MM-yyyy')}"></td>
                         <td>
-                            <a class="btn btn-primary" href="#">Ver detalle</a>
+                            <a href="#"
+                               data-toggle="modal"
+                               data-target="#detalle_general"
+                               class="btn btn-primary"
+                               th:attr="data-proceso_venta_id='__${pv.ProcesoVenta.id}__'">
+                                Ver detalle
+                            </a>
                         </td>
                     </tr>
                     </tbody>
@@ -213,6 +219,8 @@
 
 
 <div th:replace="componentes/base :: load-scripts"></div>
+<div th:replace="componentes/detalle :: detalle-general"></div>
+
 <script src="./assets/custom/clienteext/mispedidos.js" type="text/javascript"></script>
 
 

@@ -9,6 +9,12 @@ public class UtilConstant {
     public static final String ROLE_PRODUCTOR = "ROLE_PRODUCTOR";
     public static final String ROLE_TRANSPORTISTA = "ROLE_TRANSPORTISTA";
 
+    public static final int ROLE_ID_ADMIN = 1;
+    public static final int ROLE_ID_CLIENTE_EXT = 4;
+    public static final int ROLE_ID_CLIENTE_INT = 5;
+    public static final int ROLE_ID_PRODUCTOR = 2;
+    public static final int ROLE_ID_TRANSPORTISTA = 3;
+
 
     // Etapas
 
