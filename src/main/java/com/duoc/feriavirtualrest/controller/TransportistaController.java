@@ -111,13 +111,18 @@ public class TransportistaController {
             detalle_subastaABuscar.setTransportista_id(transportistaEncontrado.getId());
             List<Detalle_subasta> listaDetalleSubasta = detalleSubastaService.SP_DETALLE_SUBASTA_CONSULTAR(detalle_subastaABuscar);
 
+            List<ProcesoVentaCompleto> listaProcesosQueYaParticipo = new ArrayList<>();
+
             for(ProcesoVentaCompleto pvc : listaProcesoVentaCompleto){
                 for(Detalle_subasta ds : listaDetalleSubasta){
                     if(pvc.getProcesoVenta().getSubasta_id() == ds.getSubasta_id()){
-                        listaProcesoVentaCompleto.remove(pvc);
+                        listaProcesosQueYaParticipo.add(pvc);
                     }
                 }
             }
+
+            listaProcesoVentaCompleto.removeAll(listaProcesosQueYaParticipo);
+
             model.addAttribute("usuario_no_permitido", false);
             model.addAttribute("listaProcesoVentaCompleto", listaProcesoVentaCompleto);
         }else{
@@ -197,5 +202,11 @@ public class TransportistaController {
     @RequestMapping("/procesos")
     public String procesos (Model model) {
         return ViewConstant.V_T_PROCESOS;
+    }
+
+    @RequestMapping("/informar")
+    public String informar (Model model) throws ClassNotFoundException {
+
+        return ViewConstant.V_T_INFORMAR;
     }
 }
