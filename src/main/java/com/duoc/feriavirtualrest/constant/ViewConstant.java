@@ -34,5 +34,6 @@ public class ViewConstant {
     public static final String V_T_HOME = RUTABASE_TRANSPORTISTA + "home";
     public static final String V_T_SUBASTAS = RUTABASE_TRANSPORTISTA + "subastas";
     public static final String V_T_PROCESOS = RUTABASE_TRANSPORTISTA + "procesos";
+    public static final String V_T_INFORMAR = RUTABASE_TRANSPORTISTA + "informar";
 
 }
