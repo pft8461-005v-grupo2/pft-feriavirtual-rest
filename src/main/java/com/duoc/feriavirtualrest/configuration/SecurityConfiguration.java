@@ -55,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 .key("unique-and-secret")
                 .rememberMeParameter("unique-remember-me")
                 .rememberMeCookieName("remember-me-cookie")
-                .tokenValiditySeconds(20 * 60 * 60)
+                .tokenValiditySeconds(3600)
         ;
     }
 

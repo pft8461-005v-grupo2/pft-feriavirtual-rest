@@ -7,6 +7,7 @@ import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
 import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.StockDisponible;
+import com.duoc.feriavirtualrest.entity.Subasta;
 import com.duoc.feriavirtualrest.model.ResponseSP;
 import com.duoc.feriavirtualrest.service.GestionesService;
 import com.duoc.feriavirtualrest.service.IngresoService;
@@ -15,12 +16,14 @@ import com.duoc.feriavirtualrest.service.ProcesoVentaService;
 import com.duoc.feriavirtualrest.service.ProductoService;
 import com.duoc.feriavirtualrest.service.SolicitudCompraService;
 import com.duoc.feriavirtualrest.service.StockDisponibleService;
+import com.duoc.feriavirtualrest.service.SubastaService;
 import com.duoc.feriavirtualrest.util.Utiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service("gestionesService")
@@ -43,6 +46,9 @@ public class GestionesServiceImp implements GestionesService {
 
     @Autowired
     private ProcesoVentaIngresoService procesoVentaIngresoService;
+
+    @Autowired
+    private SubastaService subastaService;
 
     @Override
     public int iniciarProcesoVenta(ProcesoVenta procesoVenta) throws IOException, ClassNotFoundException {
@@ -241,9 +247,51 @@ public class GestionesServiceImp implements GestionesService {
             procesoVentaAActualizar.setId(procesoVentaId);
             procesoVentaAActualizar.setPreciocostototal(precioCostoTotal);
             procesoVentaAActualizar.setPrecioventatotal(precioVentaTotal);
-
             procesoVentaService.SP_PROCESO_VENTA_ACTUALIZAR(procesoVentaAActualizar);
-
         }
+    }
+
+    @Override
+    public int iniciarSubasta(Subasta subasta) throws ClassNotFoundException, IOException {
+
+        if(subasta == null){ return -1; }
+        Integer procesoVenta_id = subasta.getId();
+        if(procesoVenta_id == null){ return -1; }
+
+        Date fechatermino = subasta.getFechatermino();
+        if(fechatermino == null){ return -1; }
+
+
+        // Obtenemos PROCESO_VENTA
+        ProcesoVenta procesoVentaABuscar = new ProcesoVenta();
+        procesoVentaABuscar.setId(subasta.getId()); // Por temas de optimización, ID de SUBASTA se refiere a PROCESO_VENTA_ID
+        ProcesoVenta procesoVentaEncontrado = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar).stream().findFirst().orElse(null);
+
+        if(procesoVentaEncontrado == null) { return -1; }
+
+        if(procesoVentaEncontrado.getEtapa() != UtilConstant.ETAPA_PROCESO_ACUERDO_ACEPTADO){
+            return -2;
+        }
+
+        Subasta subastaACrear = new Subasta();
+        subastaACrear.setFechatermino(fechatermino);
+        ResponseSP response = Utiles.objectToResponseSP(subastaService.SP_SUBASTA_CREAR(subastaACrear));
+        if(response != null){
+            if(response.getOUT_ID_SALIDA() > 0){
+                subastaACrear.setId(response.getOUT_ID_SALIDA());
+            }else { return -1; }
+        }else { return -1; }
+
+        // Se actualiza procesoVenta
+        ProcesoVenta procesoVentaAActualizar = new ProcesoVenta();
+        procesoVentaAActualizar.setId(procesoVenta_id);
+        procesoVentaAActualizar.setSubasta_id(subastaACrear.getId());
+        procesoVentaAActualizar.setEtapa(UtilConstant.ETAPA_PROCESO_SUBASTA_INICIADA);
+        ResponseSP responseActualizacion = Utiles.objectToResponseSP(procesoVentaService.SP_PROCESO_VENTA_ACTUALIZAR(procesoVentaAActualizar));
+        if(responseActualizacion != null){
+            if(response.getOUT_ID_SALIDA() > 0){
+                return 1;
+            } else { return -1; }
+        } else { return -1; }
     }
 }

@@ -1,6 +1,7 @@
 package com.duoc.feriavirtualrest.api;
 
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
+import com.duoc.feriavirtualrest.entity.Subasta;
 import com.duoc.feriavirtualrest.service.GestionesService;
 import com.duoc.feriavirtualrest.service.StockDisponibleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,12 +60,16 @@ public class GestionesController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public ResponseEntity<Object> iniciar_subasta(@RequestBody ProcesoVenta procesoVenta) throws IOException, ClassNotFoundException {
+    public ResponseEntity<Object> iniciar_subasta(@RequestBody Subasta subasta) throws IOException, ClassNotFoundException {
         /*
+            Entradas
+            Por optimización, ID de SUBASTA trae la ID de PROCESO_VENTA
             Retornos
+            -2 = Proceso de venta esta en una etapa no habilitada para iniciar subasta
             -1 = Error
+            1 = Subasta iniciada
          */
-        return new ResponseEntity<Object>(gestionesService.iniciarProcesoVenta(procesoVenta), HttpStatus.OK);
+        return new ResponseEntity<Object>(gestionesService.iniciarSubasta(subasta), HttpStatus.OK);
     }
 
 
