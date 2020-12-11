@@ -34,6 +34,7 @@ import java.util.List;
                 procedureName = SPConstant.TABLE_SPACE + SPConstant.SP_PROCESO_VENTA_ACTUALIZAR,
                 parameters = {
                         @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_PROCESO_VENTA_ID", type=Integer.class),
+                        @StoredProcedureParameter(mode= ParameterMode.IN, name="IN_SOLICITUD_COMPRA_ID", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_ETAPA", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_SUBASTA_ID", type=Integer.class),
                         @StoredProcedureParameter(mode=ParameterMode.IN, name="IN_CLIENTEACEPTAACUERDO", type=Integer.class),

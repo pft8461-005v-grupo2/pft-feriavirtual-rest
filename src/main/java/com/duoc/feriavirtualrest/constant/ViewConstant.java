@@ -24,6 +24,7 @@ public class ViewConstant {
 
     // [ Cliente Interno ]
     public static final String V_CI_HOME = RUTABASE_CLIENTEINT + "home";
+    public static final String V_CI_PROCESO_DISPONIBLES = RUTABASE_CLIENTEINT + "procesos_disponibles";
 
     // [ Productor ]
     public static final String V_P_HOME = RUTABASE_PRODUCTOR + "home";
