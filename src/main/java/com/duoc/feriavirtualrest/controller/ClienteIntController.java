@@ -189,4 +189,59 @@ public class ClienteIntController {
         if(responseProcesoVentaActualizar.getOUT_ID_SALIDA() <= 0){ return -1; }
         return 1;
     }
+
+    @RequestMapping("/mispedidos")
+    public String mispedidos (Model model) throws ClassNotFoundException {
+
+        Usuario usuario = usuarioService.obtenerUsuario();
+
+        Cliente clienteABuscar = new Cliente();
+        clienteABuscar.setUsuario_id(usuario.getId());
+        Cliente clienteEncontrado = clienteService.SP_CLIENTE_CONSULTAR(clienteABuscar).stream().findFirst().orElse(null);
+
+        if(clienteEncontrado == null ){ return "redirect:/clienteint/home"; }
+
+        Solicitud_compra solicitud_compraABuscar = new Solicitud_compra();
+        solicitud_compraABuscar.setCliente_id(clienteEncontrado.getId());
+        List<Solicitud_compra> listaSolicitudCompraEncontradas = solicitudCompraService.SP_SOLICITUD_COMPRA_CONSULTAR(solicitud_compraABuscar);
+
+        // Mis solicitudes
+        ProcesoVenta procesoVentaABuscar_solicitudes = new ProcesoVenta();
+        procesoVentaABuscar_solicitudes.setEtapa(UtilConstant.ETAPA_PROCESO_NACIONAL_SOLCITUD_COMPRA);
+        List<ProcesoVenta> procesoVentaNacionalesSolicitudesEncontrados = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar_solicitudes);
+
+        // Ordenes generadas
+        ProcesoVenta procesoVentaABuscar_ordenes = new ProcesoVenta();
+        procesoVentaABuscar_ordenes.setEtapa(UtilConstant.ETAPA_PROCESO_NACIONAL_GESTIONA_ORDEN_DE_COMPRA);
+        List<ProcesoVenta> procesoVentaNacionalesOrdenesEncontrados = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar_ordenes);
+
+        // Inicializar listas vacias
+        List<ProcesoVentaCompleto> listaProcesoVentaCompletoSolicitudes = new ArrayList<>();
+        List<ProcesoVentaCompleto> listaProcesoVentaCompletoOrdenes = new ArrayList<>();
+
+        for(Solicitud_compra sc : listaSolicitudCompraEncontradas){
+            for(ProcesoVenta enSolicitud : procesoVentaNacionalesSolicitudesEncontrados){
+                if(enSolicitud.getSolicitud_compra_id() == null) { continue; }
+                if(sc.getId().intValue() == enSolicitud.getSolicitud_compra_id().intValue()){
+                    ProcesoVentaCompleto pvc = new ProcesoVentaCompleto();
+                    pvc.setSolicitud_compra(sc);
+                    pvc.setProcesoVenta(enSolicitud);
+                    listaProcesoVentaCompletoSolicitudes.add(pvc);
+                }
+            }
+            for(ProcesoVenta enOrdenes : procesoVentaNacionalesOrdenesEncontrados){
+                if(enOrdenes.getSolicitud_compra_id() == null) { continue; }
+                if(sc.getId().intValue() == enOrdenes.getSolicitud_compra_id().intValue()){
+                    ProcesoVentaCompleto pvc = new ProcesoVentaCompleto();
+                    pvc.setSolicitud_compra(sc);
+                    pvc.setProcesoVenta(enOrdenes);
+                    listaProcesoVentaCompletoOrdenes.add(pvc);
+                }
+            }
+        }
+
+        model.addAttribute("listaProcesoVentaCompletoSolicitudes", listaProcesoVentaCompletoSolicitudes);
+        model.addAttribute("listaProcesoVentaCompletoOrdenes",listaProcesoVentaCompletoOrdenes);
+        return ViewConstant.V_CI_MIS_PEDIDOS;
+    }
 }
