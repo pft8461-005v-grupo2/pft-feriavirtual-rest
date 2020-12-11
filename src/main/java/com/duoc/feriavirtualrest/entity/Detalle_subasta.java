@@ -53,6 +53,10 @@ public class Detalle_subasta {
     public Detalle_subasta() {
     }
 
+    public Detalle_subasta(Integer valorpropuesta){
+        this.valorpropuesta = valorpropuesta;
+    }
+
     @Id
     @Column(name = "TRANSPORTISTA_ID")
     public Integer getTransportista_id() {

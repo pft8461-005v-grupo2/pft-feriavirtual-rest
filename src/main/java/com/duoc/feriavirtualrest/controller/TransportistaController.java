@@ -207,6 +207,79 @@ public class TransportistaController {
     @RequestMapping("/informar")
     public String informar (Model model) throws ClassNotFoundException {
 
+        // Quitar en las que ya estoy participando
+        Usuario usuario = usuarioService.obtenerUsuario();
+
+        Transportista transportistaABuscar = new Transportista();
+        transportistaABuscar.setUsuario_id(usuario.getId());
+        Transportista transportistaEncontrado = transportistaService.SP_TRANSPORTISTA_CONSULTAR(transportistaABuscar).stream().findFirst().orElse(null);
+
+        if(transportistaEncontrado == null || usuario == null){
+            return "redirect:/logout";
+        }
+
+
+        ProcesoVenta procesoVentaABuscar = new ProcesoVenta();
+        procesoVentaABuscar.setEtapa(UtilConstant.ETAPA_PROCESO_EN_TRANSITO);
+        List<ProcesoVenta> listaProcesoVentaEncontrados = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar);
+
+        List<ProcesoVentaCompleto> listaProcesoVentaCompleto = new ArrayList<>();
+
+        for(ProcesoVenta procesoVenta : listaProcesoVentaEncontrados){
+            if(procesoVenta.getSubasta_id() != null){
+                Detalle_subasta detalle_subastaABuscar = new Detalle_subasta();
+                detalle_subastaABuscar.setSubasta_id(procesoVenta.getSubasta_id());
+                detalle_subastaABuscar.setTransportista_id(transportistaEncontrado.getId());
+                Detalle_subasta detalle_subastaEncontrada = detalleSubastaService.SP_DETALLE_SUBASTA_CONSULTAR(detalle_subastaABuscar).stream().findFirst().orElse(null);
+
+                if(detalle_subastaEncontrada != null){
+                    ProcesoVentaCompleto pvc = new ProcesoVentaCompleto();
+                    pvc.setProcesoVenta(procesoVenta);
+
+                    Solicitud_compra solicitud_compraABuscar = new Solicitud_compra();
+                    solicitud_compraABuscar.setId(procesoVenta.getSolicitud_compra_id());
+                    Solicitud_compra solicitud_compraEncontrada = solicitudCompraService.SP_SOLICITUD_COMPRA_CONSULTAR(solicitud_compraABuscar).stream().findFirst().orElse(null);
+
+                    pvc.setSolicitud_compra(solicitud_compraEncontrada);
+                    listaProcesoVentaCompleto.add(pvc);
+                }
+            }
+        }
+
+        model.addAttribute("listaProcesoVentaCompleto", listaProcesoVentaCompleto);
+
         return ViewConstant.V_T_INFORMAR;
+    }
+
+    @RequestMapping(value = "/subasta/informar-entrega", method = RequestMethod.GET)
+    public @ResponseBody
+    Integer informar_entrega(@RequestParam int proceso_venta_id) throws ClassNotFoundException, IOException {
+
+
+        ProcesoVenta procesoVentaABuscar = new ProcesoVenta();
+        procesoVentaABuscar.setId(proceso_venta_id);
+        ProcesoVenta procesoVentaEncontrado = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar).stream().findFirst().orElse(null);
+        if(procesoVentaEncontrado == null ){ return -1;}
+
+        if(procesoVentaEncontrado.getSubasta_id() == null) { return -1; }
+
+        Usuario usuario = usuarioService.obtenerUsuario();
+
+        Transportista transportistaABuscar = new Transportista();
+        transportistaABuscar.setUsuario_id(usuario.getId());
+        Transportista transportistaEncontrado = transportistaService.SP_TRANSPORTISTA_CONSULTAR(transportistaABuscar).stream().findFirst().orElse(null);
+
+        if(transportistaEncontrado == null){ return -1; }
+
+        // Actualizar proceso venta
+        ProcesoVenta procesoVentaAActualizar = new ProcesoVenta();
+        procesoVentaAActualizar.setId(procesoVentaEncontrado.getId());
+        procesoVentaAActualizar.setEtapa(UtilConstant.ETAPA_PROCESO_ENTREGADO_EN_BODEGA_CENTRAL);
+        ResponseSP response = Utiles.objectToResponseSP(procesoVentaService.SP_PROCESO_VENTA_ACTUALIZAR(procesoVentaAActualizar));
+        if(response != null){
+            if(response.getOUT_ID_SALIDA() > 0){
+                return 1;
+            } else{ return -1; } }
+        else{ return -1; }
     }
 }

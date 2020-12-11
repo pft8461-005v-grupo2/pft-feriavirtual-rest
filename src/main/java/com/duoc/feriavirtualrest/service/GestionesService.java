@@ -11,5 +11,7 @@ public interface GestionesService {
 
     int iniciarSubasta(Subasta subasta) throws ClassNotFoundException, IOException;
 
+    int detenerSubasta(Subasta subasta) throws ClassNotFoundException, IOException;
+
     void actualizarValoresProcesoVenta(int procesoVentaId) throws ClassNotFoundException;
 }
