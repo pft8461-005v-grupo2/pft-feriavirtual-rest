@@ -1,5 +1,6 @@
 package com.duoc.feriavirtualrest.api;
 
+import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
 import com.duoc.feriavirtualrest.entity.Subasta;
 import com.duoc.feriavirtualrest.service.GestionesService;
@@ -85,5 +86,20 @@ public class GestionesController {
             1 = Subasta detenida
          */
         return new ResponseEntity<Object>(gestionesService.detenerSubasta(subasta), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(   value = "/proceso-nacional/iniciar-proceso",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public ResponseEntity<Object> iniciar_proceso_venta_nacional(@RequestBody Ingreso ingreso) throws IOException, ClassNotFoundException {
+        /*
+            Retornos
+            -1 = Error
+            1 = Se inició proceso de venta nacional
+         */
+        return new ResponseEntity<Object>(gestionesService.iniciarProcesoVenta(ingreso), HttpStatus.OK);
     }
 }
