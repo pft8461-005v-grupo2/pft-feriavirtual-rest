@@ -16,7 +16,7 @@ public class UtilConstant {
     public static final int ROLE_ID_TRANSPORTISTA = 3;
 
 
-    // Etapas
+    // Etapa proceso internacional
 
     public static final int ETAPA_PROCESO_INICIADO = 1; // Se creo proceso de venta, pero no hay stock o stock insuficiente (pendiente de ingresos por parte del productor)
     public static final int ETAPA_PROCESO_EN_ACUERDO = 2; // Se crea proceso de venta y hay stock suficiente (esto quiere decir que hay ingresos y productores asociados)
@@ -27,9 +27,12 @@ public class UtilConstant {
     public static final int ETAPA_PROCESO_ENTREGADO_EN_BODEGA_CENTRAL = 7; // Se entrega mercaderia en bodega central por transportista
     public static final int ETAPA_PROCESO_DESPACHO = 8; // Se despacha final
     public static final int ETAPA_PROCESO_RESPUESTA_CLIENTE = 9; // El cliente da feedback del producto recibido
-
     public static final int ETAPA_PROCESO_ACUERDO_RECHAZADO = -1;
 
+    // Etapas proceso nacional
+    public static final int ETAPA_PROCESO_NACIONAL_INICIADO = 100;
+    public static final int ETAPA_PROCESO_NACIONAL_SOLCITUD_COMPRA = 101;
+    public static final int ETAPA_PROCESO_NACIONAL_GESTIONA_ORDEN_DE_COMPRA = 102;
 
 
     // Otros

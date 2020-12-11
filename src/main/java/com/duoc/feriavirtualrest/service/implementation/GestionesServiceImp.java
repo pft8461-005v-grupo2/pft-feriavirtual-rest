@@ -9,6 +9,7 @@ import com.duoc.feriavirtualrest.entity.Producto;
 import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.StockDisponible;
 import com.duoc.feriavirtualrest.entity.Subasta;
+import com.duoc.feriavirtualrest.model.IngresoCompleto;
 import com.duoc.feriavirtualrest.model.ResponseSP;
 import com.duoc.feriavirtualrest.service.DetalleSubastaService;
 import com.duoc.feriavirtualrest.service.GestionesService;
@@ -353,6 +354,58 @@ public class GestionesServiceImp implements GestionesService {
                     } else { return -1; }
                 } else { return -1; }
             } else { return -1; }
+        } else { return -1; }
+    }
+
+    @Override
+    public int iniciarProcesoVenta(Ingreso ingreso) throws IOException, ClassNotFoundException {
+
+        int procesoVenta_generado = 0;
+
+        // Se envía proceso de venta vacío
+        ResponseSP respuestaProcesoVenta = Utiles.objectToResponseSP(procesoVentaService.SP_PROCESO_VENTA_CREAR(new ProcesoVenta()));
+        if(respuestaProcesoVenta != null) {
+            if (respuestaProcesoVenta.getOUT_ID_SALIDA() > 0) {
+                procesoVenta_generado = respuestaProcesoVenta.getOUT_ID_SALIDA();
+            } else {
+                return -1;
+            }
+        } else { return -1; }
+
+        // Se busca el Ingreso asociado
+        Ingreso ingresoABuscar = new Ingreso();
+        ingresoABuscar.setId(ingreso.getId());
+        Ingreso ingresoEncontrado = ingresoService.SP_INGRESO_CONSULTAR(ingresoABuscar).stream().findFirst().orElse(null);
+
+        if(ingresoEncontrado == null){ return -1; }
+
+        ProcesoVenta procesoVentaAActualizar = new ProcesoVenta();
+        procesoVentaAActualizar.setId(procesoVenta_generado);
+        procesoVentaAActualizar.setEtapa(UtilConstant.ETAPA_PROCESO_NACIONAL_INICIADO);
+        procesoVentaAActualizar.setPreciocostototal(ingresoEncontrado.getKilogramos() * ingresoEncontrado.getPreciokgcostounitario());
+        procesoVentaAActualizar.setPrecioventatotal(ingresoEncontrado.getKilogramos() * ingresoEncontrado.getPreciokgventaunitario());
+        ResponseSP respuestaProcesoVentaActualizar = Utiles.objectToResponseSP(procesoVentaService.SP_PROCESO_VENTA_ACTUALIZAR(procesoVentaAActualizar));
+        if(respuestaProcesoVentaActualizar == null) { return -1; }
+        if(respuestaProcesoVentaActualizar.getOUT_ID_SALIDA() <= 0) { return -1; }
+
+        ProcesoVentaIngreso procesoVentaIngresoACrear = new ProcesoVentaIngreso();
+        procesoVentaIngresoACrear.setProceso_venta_id(procesoVenta_generado);
+        procesoVentaIngresoACrear.setIngreso_id(ingresoEncontrado.getId());
+        procesoVentaIngresoACrear.setKilogramosocupados(ingresoEncontrado.getKilogramos());
+        ResponseSP respuestaProcesoVentaIngreso = Utiles.objectToResponseSP(procesoVentaIngresoService.SP_PROCESO_VENTA_INGRESO_CREAR(procesoVentaIngresoACrear));
+        if(respuestaProcesoVentaIngreso != null) {
+            if (respuestaProcesoVentaIngreso.getOUT_ID_SALIDA() == 0) {
+                // Actualizar Ingreso
+                Ingreso ingresoAActualizar = new Ingreso();
+                ingresoAActualizar.setId(ingresoEncontrado.getId());
+                ingresoAActualizar.setHabilitado(0);
+                ResponseSP respuestaIngresoActualizar = Utiles.objectToResponseSP(ingresoService.SP_INGRESO_ACTUALIZAR(ingresoAActualizar));
+                if(respuestaIngresoActualizar == null) { return -1; }
+                if(respuestaIngresoActualizar.getOUT_ID_SALIDA() <= 0){ return -1; }
+                return 1;
+            } else {
+                return -1;
+            }
         } else { return -1; }
     }
 }
