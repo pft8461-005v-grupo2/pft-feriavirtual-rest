@@ -46,6 +46,7 @@ public class ProcesoVentaServiceImp implements ProcesoVentaService {
             return procesoVentaRepository.SP_PROCESO_VENTA_ACTUALIZAR(
                     procesoVenta.getId(),
                     procesoVenta.getEtapa(),
+                    procesoVenta.getSubasta_id(),
                     procesoVenta.getClienteaceptaacuerdo(),
                     procesoVenta.getPrecioventatotal(),
                     procesoVenta.getPreciocostototal()
