@@ -18,6 +18,7 @@ public interface ProcesoVentaRepository extends CrudRepository<ProcesoVenta, Lon
     @Procedure(name = SPConstant.SP_PROCESO_VENTA_ACTUALIZAR)
     Object SP_PROCESO_VENTA_ACTUALIZAR(
             @Param("IN_PROCESO_VENTA_ID") Integer IN_PROCESO_VENTA_ID,
+            @Param("IN_SOLICITUD_COMPRA_ID") Integer IN_SOLICITUD_COMPRA_ID,
             @Param("IN_ETAPA") Integer IN_ETAPA,
             @Param("IN_SUBASTA_ID") Integer IN_SUBASTA_ID,
             @Param("IN_CLIENTEACEPTAACUERDO") Integer IN_CLIENTEACEPTAACUERDO,

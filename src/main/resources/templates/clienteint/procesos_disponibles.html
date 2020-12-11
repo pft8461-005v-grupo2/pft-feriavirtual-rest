@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente Nacional | Procesos de venta disponibles</title>
+
+    <base href="../">
+    <div th:replace="componentes/base :: load-styles"></div>
+
+
+</head>
+<body>
+
+<div th:replace="componentes/base :: load-menus"></div>
+
+
+<div class="container">
+    <table class="table" >
+        <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Kilogramos</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Comuna</th>
+            <th scope="col">Fecha creación</th>
+            <th scope="col">Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pv : ${listaProcesoVentaCompleto}">
+            <th th:text="${'#' + pv.procesoVenta.id}"></th>
+            <td th:text="${pv.producto.descripcion}"></td>
+            <td th:text="${new java.text.DecimalFormat('###,###,###').format(pv.ingreso.kilogramos)}"></td>
+            <td th:text="${pv.productor.razonsocial}"></td>
+            <td th:text="${pv.productor.comuna}"></td>
+            <td th:text="${#dates.format(pv.procesoVenta.fechacreacion, 'dd-MM-yyyy')}"></td>
+            <td>
+                <a href="#"
+                   data-toggle="modal"
+                   data-target="#ver_detalle"
+                   class="btn btn-primary"
+                   th:attr="data-proceso_venta_id='__${pv.procesoVenta.id}__',
+                   data-productor_nombre='__${pv.productor.razonsocial}__',
+                   data-productor_direccion='__${pv.productor.direccion}__',
+                   data-productor_comuna='__${pv.productor.comuna}__',
+                   data-producto_descripcion='__${pv.producto.descripcion}__',
+                   data-producto_kilogramos='__${pv.ingreso.kilogramos}__',
+                   data-producto_fechacreacion='__${#dates.format(pv.procesoVenta.fechacreacion, 'dd-MM-yyyy')}__',
+                   data-producto_preciounitario='__${new java.text.DecimalFormat('$ ###,###,###').format(pv.ingreso.preciokgcostounitario)}__',
+                   data-producto_preciototal='__${new java.text.DecimalFormat('$ ###,###,###').format(pv.ingreso.preciokgcostounitario * pv.ingreso.kilogramos)}__',
+                                        ">
+                    Más detalles
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${listaProcesoVentaCompleto.size()} == 0" class="alert alert-info my-3" role="alert">
+        No hay procesos de ventas nacionales disponibles para mostrar.
+    </div>
+</div>
+
+
+<div th:replace="componentes/base :: load-scripts"></div>
+
+
+<!--begin::ver_detalle-->
+<div class="modal fade" id="ver_detalle" tabindex="-1"
+     role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalle del proceso de venta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="container modal-body">
+                <!--begin::Form-->
+                <div class="kt-portlet__body">
+                    <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <input type="hidden" id="procesoventa_id" />
+
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Proveedor</label>
+                                <input id="productor_nombre"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="productor_nombre"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input id="productor_direccion"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="productor_direccion"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Comuna</label>
+                                <input id="productor_comuna"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="productor_comuna"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Producto</label>
+                                <input id="producto_descripcion"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_descripcion"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Kilogramos</label>
+                                <input id="producto_kilogramos"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_kilogramos"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Fecha creación</label>
+                                <input id="producto_fechacreacion"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_fechacreacion"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-xl-4"></div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Precio por Kg.</label>
+                                <input id="producto_preciounitario"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_preciounitario"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Precio total</label>
+                                <input id="producto_preciototal"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_preciototal"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--end::Form-->
+            </div>
+            <div class="modal-footer">
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions">
+                        <button type="submit"
+                                class="btn btn-success btn_solicitar_oc">Solicitar Orden de Compra</button>
+                        <button type="button" data-dismiss="modal"
+                                class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::ver_detalle-->
+
+<script src="./assets/custom/clienteint/procesos_disponibles.js" type="text/javascript"></script>
+
+
+</body>
+</html>

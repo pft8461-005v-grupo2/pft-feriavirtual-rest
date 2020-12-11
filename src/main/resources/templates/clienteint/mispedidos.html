@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis pedidos | Cliente nacional</title>
+
+    <base href="../">
+    <div th:replace="componentes/base :: load-styles"></div>
+
+
+</head>
+<body>
+
+<div th:replace="componentes/base :: load-menus"></div>
+
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav-item active">
+                <a class="nav-link" data-toggle="pill" href="#menu1">Mis solicitudes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#menu2">Ordenes de compra</a>
+            </li>
+        </ul>
+
+
+        <div class="tab-content mt-5">
+            <div id="menu1" class="tab-pane fade in active">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Pedido</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Kilogramos</th>
+                        <th scope="col">Fecha Creación</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pv : ${listaProcesoVentaCompletoSolicitudes}">
+                        <th th:text="${'#' + pv.Solicitud_compra.id}"></th>
+                        <td th:text="${pv.Solicitud_compra.producto}"></td>
+                        <td th:text="${new java.text.DecimalFormat('###,###,###').format(pv.Solicitud_compra.kilogramos)}"></td>
+                        <td th:text="${#dates.format(pv.ProcesoVenta.fechacreacion, 'dd-MM-yyyy')}"></td>
+                        <td>
+                            <a href="#"
+                               data-toggle="modal"
+                               data-target="#detalle_general"
+                               class="btn btn-primary"
+                               th:attr="data-proceso_venta_id='__${pv.ProcesoVenta.id}__'">
+                                Ver detalle
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${listaProcesoVentaCompletoSolicitudes.size()} == 0" class="alert alert-info my-3" role="alert">
+                    No tienes solicitudes vigentes para mostrar.
+                </div>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Pedido</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Kilogramos</th>
+                        <th scope="col">Fecha Creación</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pv : ${listaProcesoVentaCompletoOrdenes}">
+                        <th th:text="${'#' + pv.Solicitud_compra.id}"></th>
+                        <td th:text="${pv.Solicitud_compra.producto}"></td>
+                        <td th:text="${new java.text.DecimalFormat('###,###,###').format(pv.Solicitud_compra.kilogramos)}"></td>
+                        <td th:text="${#dates.format(pv.ProcesoVenta.fechacreacion, 'dd-MM-yyyy')}"></td>
+                        <td>
+                            <a href="#"
+                               data-toggle="modal"
+                               data-target="#ver_detalle"
+                               class="btn btn-primary"
+                               th:attr="data-proceso_venta_id='__${pv.ProcesoVenta.id}__',
+                                        data-producto='__${pv.Solicitud_compra.producto}__',
+                                        data-kilogramos='__${new java.text.DecimalFormat('###,###,###').format(pv.Solicitud_compra.kilogramos)}__',
+                                        data-fechacreacion='__${#dates.format(pv.ProcesoVenta.fechacreacion, 'dd-MM-yyyy')}__'">
+                                Ver propuesta
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${listaProcesoVentaCompletoOrdenes.size()} == 0" class="alert alert-info my-3" role="alert">
+                    No tienes ordenes de compra para mostrar.
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--begin::ver_detalle-->
+<div class="modal fade" id="ver_detalle" tabindex="-1"
+     role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Propuesta de venta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="container modal-body">
+                <!--begin::Form-->
+                <div class="kt-portlet__body">
+                    <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <input type="hidden" id="procesoventa_id" />
+
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Fruta</label>
+                                <input id="producto_descripcion"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_descripcion"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Kilogramos</label>
+                                <input id="producto_kilogramos"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="producto_kilogramos"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Fecha solicitud</label>
+                                <input id="fechasolicitud"
+                                       type="text"
+                                       class="form-control"
+                                       aria-describedby="fechasolicitud"
+                                       disabled="disabled">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Kilogramos</th>
+                                <th scope="col">Precio Kg.</th>
+                                <th scope="col">Precio Total</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tabla_dinamica_ver_detalle">
+                            </tbody>
+                            <tfoot>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="total_precio_total"></td>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+
+                <!--end::Form-->
+            </div>
+            <div class="modal-footer">
+                <div class="kt-portlet__foot">
+                    <div class="kt-form__actions">
+                        <button type="submit"
+                                class="btn btn-success btn_acepta_propuesta">Aceptar</button>
+                        <button type="submit"
+                                class="btn btn-danger btn_rechaza_propuesta">Rechazar</button>
+                        <button type="button" data-dismiss="modal"
+                                class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::ver_detalle-->
+
+
+<div th:replace="componentes/base :: load-scripts"></div>
+<div th:replace="componentes/detalle :: detalle-general"></div>
+
+<script src="./assets/custom/clienteext/mispedidos.js" type="text/javascript"></script>
+
+
+</body>
+</html>

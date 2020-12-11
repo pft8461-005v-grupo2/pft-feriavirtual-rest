@@ -76,7 +76,7 @@ public class TransportistaController {
     public String subastas (Model model) throws ClassNotFoundException {
 
         ProcesoVenta procesoVentaABuscar = new ProcesoVenta();
-        procesoVentaABuscar.setEtapa(5);
+        procesoVentaABuscar.setEtapa(UtilConstant.ETAPA_PROCESO_SUBASTA_INICIADA);
         List<ProcesoVenta> listaProcesoVentaDisponibles = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar);
 
         List<ProcesoVentaCompleto> listaProcesoVentaCompleto = new ArrayList<>();;
