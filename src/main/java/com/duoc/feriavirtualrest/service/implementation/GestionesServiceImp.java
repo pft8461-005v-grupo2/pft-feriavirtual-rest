@@ -1,6 +1,7 @@
 package com.duoc.feriavirtualrest.service.implementation;
 
 import com.duoc.feriavirtualrest.constant.UtilConstant;
+import com.duoc.feriavirtualrest.entity.Detalle_subasta;
 import com.duoc.feriavirtualrest.entity.Ingreso;
 import com.duoc.feriavirtualrest.entity.ProcesoVenta;
 import com.duoc.feriavirtualrest.entity.ProcesoVentaIngreso;
@@ -9,6 +10,7 @@ import com.duoc.feriavirtualrest.entity.Solicitud_compra;
 import com.duoc.feriavirtualrest.entity.StockDisponible;
 import com.duoc.feriavirtualrest.entity.Subasta;
 import com.duoc.feriavirtualrest.model.ResponseSP;
+import com.duoc.feriavirtualrest.service.DetalleSubastaService;
 import com.duoc.feriavirtualrest.service.GestionesService;
 import com.duoc.feriavirtualrest.service.IngresoService;
 import com.duoc.feriavirtualrest.service.ProcesoVentaIngresoService;
@@ -49,6 +51,9 @@ public class GestionesServiceImp implements GestionesService {
 
     @Autowired
     private SubastaService subastaService;
+
+    @Autowired
+    private DetalleSubastaService detalleSubastaService;
 
     @Override
     public int iniciarProcesoVenta(ProcesoVenta procesoVenta) throws IOException, ClassNotFoundException {
@@ -291,6 +296,62 @@ public class GestionesServiceImp implements GestionesService {
         if(responseActualizacion != null){
             if(response.getOUT_ID_SALIDA() > 0){
                 return 1;
+            } else { return -1; }
+        } else { return -1; }
+    }
+
+    @Override
+    public int detenerSubasta(Subasta subasta) throws ClassNotFoundException, IOException {
+
+        ProcesoVenta procesoVentaABuscar = new ProcesoVenta();
+        procesoVentaABuscar.setSubasta_id(subasta.getId());
+        procesoVentaABuscar.setEtapa(UtilConstant.ETAPA_PROCESO_SUBASTA_INICIADA);
+        ProcesoVenta procesoVentaEncontrado = procesoVentaService.SP_PROCESOVENTA_CONSULTAR(procesoVentaABuscar).stream().findFirst().orElse(null);
+
+        if(procesoVentaEncontrado == null){ return -1; }
+
+        Subasta subastaABuscar = new Subasta();
+        subastaABuscar.setId(subasta.getId());
+        Subasta subastaEncontrado = subastaService.SP_SUBASTA_CONSULTAR(subastaABuscar).stream().findFirst().orElse(null);
+
+        if(subastaEncontrado == null){ return -1; }
+
+        // Buscamos el precio más barato
+        Detalle_subasta detalle_subastaABuscar = new Detalle_subasta();
+        detalle_subastaABuscar.setSubasta_id(subasta.getId());
+        List<Detalle_subasta> listaDetalleSubastaEncontrados = detalleSubastaService.SP_DETALLE_SUBASTA_CONSULTAR(detalle_subastaABuscar);
+
+        if(listaDetalleSubastaEncontrados.isEmpty()){
+            return -2;
+        }
+
+        Detalle_subasta ofertaMasBarata = listaDetalleSubastaEncontrados.stream()
+                .reduce(new Detalle_subasta(0), (ofertaMemo, ofertaActual) ->
+                        ofertaMemo.getValorpropuesta() == 0 ? ofertaActual :
+                                ofertaActual.getValorpropuesta() < ofertaMemo.getValorpropuesta() ?
+                                        ofertaActual : ofertaMemo );
+
+
+        // TODO: Registrar el transportista ganador en Subasta
+
+        // Actualizamos Subasta
+        Subasta subastaAActualizar = new Subasta();
+        subastaAActualizar.setId(subasta.getId());
+        subastaAActualizar.setPrecioganador(ofertaMasBarata.getValorpropuesta());
+        subastaAActualizar.setHabilitado(0);
+        ResponseSP respuestaSubasta = Utiles.objectToResponseSP(subastaService.SP_SUBASTA_ACTUALIZAR(subastaAActualizar));
+        if(respuestaSubasta != null){
+            if(respuestaSubasta.getOUT_ID_SALIDA() > 0){
+                // Actualizamos Proceso Venta y pasamos a etapa
+                ProcesoVenta procesoVentaAActualizar = new ProcesoVenta();
+                procesoVentaAActualizar.setId(procesoVentaEncontrado.getId());
+                procesoVentaAActualizar.setEtapa(UtilConstant.ETAPA_PROCESO_EN_TRANSITO);
+                ResponseSP respuestaProcesoVenta = Utiles.objectToResponseSP(procesoVentaService.SP_PROCESO_VENTA_ACTUALIZAR(procesoVentaAActualizar));
+                if(respuestaProcesoVenta != null){
+                    if(respuestaProcesoVenta.getOUT_ID_SALIDA() > 0){
+                        return 1;
+                    } else { return -1; }
+                } else { return -1; }
             } else { return -1; }
         } else { return -1; }
     }

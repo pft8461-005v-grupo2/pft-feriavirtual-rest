@@ -72,5 +72,18 @@ public class GestionesController {
         return new ResponseEntity<Object>(gestionesService.iniciarSubasta(subasta), HttpStatus.OK);
     }
 
+    @RequestMapping(   value = "/proceso-internacional/detener-subasta",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
 
+    public ResponseEntity<Object> detener_subasta(@RequestBody Subasta subasta) throws IOException, ClassNotFoundException {
+        /*
+            Retornos
+            -2 = No hay ofertas registradas, por ende no se puede poner un precio ganador
+            -1 = Error
+            1 = Subasta detenida
+         */
+        return new ResponseEntity<Object>(gestionesService.detenerSubasta(subasta), HttpStatus.OK);
+    }
 }
