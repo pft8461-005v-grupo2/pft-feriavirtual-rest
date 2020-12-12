@@ -92,7 +92,7 @@ public class GestionesServiceImp implements GestionesService {
         List<StockDisponible> todoStockDisponible = stockDisponibleService.consultarStockDisponible();
         List<StockDisponible> stockDisponibleDelProducto = new ArrayList<>();
         for (StockDisponible stockDisponible : todoStockDisponible) {
-            if(stockDisponible.getProducto_id() == productoABuscar.getId()){
+            if(stockDisponible.getProducto_id().intValue() == productoABuscar.getId().intValue()){
                 stockDisponibleDelProducto.add(stockDisponible);
             }
         }
